@@ -1,6 +1,8 @@
 package main;
 
 import entity.Player;
+import menu.MenuState;
+import object.SuperObject;
 import tile.CollisionChecker;
 import tile.TileManager;
 
@@ -8,6 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
+
+    public boolean inMenu = true; // Start the game in the menu
+    MenuState menuState;
 
     //Screen Settings
     public final int originalTileSize = 16; //16 x 16
@@ -20,18 +25,32 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow;//768 pixels
 
     //WORLD SETTINGS
-    public final int maxWorldCol = 100;
-    public final int maxWorldRow = 100;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+    public int maxWorldCol;
+    public int maxWorldRow;
+//    public final int worldWidth = tileSize * maxWorldCol;
+//    public final int worldHeight = tileSize * maxWorldRow;
 
     //FPS
     int FPS = 60;
+
+    //SYSTEM
     public TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
+    KeyHandler keyH = new KeyHandler(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public Sound music = new Sound();
+    public Sound se = new Sound();
+    public UI ui = new UI(this);
+    Thread gameThread;
+
+    //ENTITY AND OBJECT
     public Player player = new Player (this, keyH);
+    public SuperObject obj[] = new SuperObject[10];
+
+    //GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     //constructor
     public GamePanel(){
@@ -40,6 +59,17 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true); //if set to true, all the drawing from this component will be done in an offscreen buffer
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        menuState = new MenuState(this); // Initialize the menu
+
+        setupGame();
+    }
+
+    public void setupGame(){
+
+        aSetter.setObject();
+        playMusic(2);
+        gameState = playState;
     }
 
     public void startGameThread(){
@@ -122,22 +152,74 @@ public class GamePanel extends JPanel implements Runnable {
     //4 x 3
 
     //Upper corner sa Java X:0 ; Y:0
-    public void update(){
-
-        player.update();
+    public void update() {
+        if (inMenu) {
+            menuState.update();
+        } else {
+            if (gameState == playState) {
+                player.update();
+            }
+            if (gameState == pauseState) {
+            }
+        }
     }
 
     //draw
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-
-
         Graphics2D g2 = (Graphics2D) g;
 
-        tileM.draw(g2);
-        player.draw(g2);
+        //DEBUG
+        long drawStart = 0;
+        if(keyH.checkDrawTime == true){
+            drawStart = System.nanoTime();
+        }
+
+        if (inMenu) {
+            menuState.draw(g2);
+        } else {
+
+            //TILE
+            tileM.draw(g2);
+            //OBJECT
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i]!=null){
+                    obj[i].draw(g2, this);
+                }
+            }
+            //PLAYER
+            player.draw(g2);
+
+            //UI
+            ui.draw(g2);
+
+            //DEBUG
+            if(keyH.checkDrawTime == true){
+                long drawEnd = System.nanoTime();
+                long passed = drawEnd - drawStart;
+                g2.setColor(Color.white);
+                g2.drawString("Draw time: " + passed, 10, 400);
+                System.out.println("Draw time: " + passed);
+            }
+
+        }
 
         g2.dispose();
+    }
+
+    public void playMusic (int i){
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic (int i){
+        music.stop();
+    }
+
+    public void playSE(int i){
+        se.setFile(i);
+        se.play();
     }
 
 }

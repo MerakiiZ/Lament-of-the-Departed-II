@@ -2,11 +2,14 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity {
 
@@ -15,6 +18,8 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+
+    public int hasKey = 0; // Track how many keys the player has
 
     BufferedImage idleImage;
 
@@ -28,49 +33,57 @@ public class Player extends Entity {
         solidArea = new Rectangle();
             solidArea.x = 10;
             solidArea.y = 20;
+            solidAreaDefaultX = solidArea.x;
+            solidAreaDefaultY = solidArea.y;
             solidArea.width = 28;
             solidArea.height = 28;
-
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 36;
-        worldY = gp.tileSize * 53;
+        worldX = gp.tileSize * 35;
+        worldY = gp.tileSize * 52;
         speed = 4;
         direction = "down"; // Default direction
         idleImage = null;  // Ensure it is initialized
     }
 
     public void getPlayerImage() {
-        try {
-            north0 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_north_0.png"));
-            north1 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_dapnhi_walk_north_1.png"));
-            north2 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_north_2.png"));
-            north3 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_north_3.png"));
+        north0 = setup("spr_npc_daphni_walk_north_0");
+        north1 = setup("spr_npc_dapnhi_walk_north_1");
+        north2 = setup("spr_npc_daphni_walk_north_2");
+        north3 = setup("spr_npc_daphni_walk_north_3");
 
-            east0 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_east_0.png"));
-            east1 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_dapni_walk_east_1.png"));
-            east2 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_east_2.png"));
-            east3 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_east_3.png"));
+        east0 = setup("spr_npc_daphni_walk_east_0");
+        east1 = setup("spr_npc_dapni_walk_east_1");
+        east2 = setup("spr_npc_daphni_walk_east_2");
+        east3 = setup("spr_npc_daphni_east_3");
 
-            west0 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_west_0.png"));
-            west1 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_dapni_walk_west_1.png"));
-            west2 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_west_0.png"));
-            west3 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_west_3.png"));
+        west0 = setup("spr_npc_daphni_walk_west_0");
+        west1 = setup("spr_npc_dapni_walk_west_1");
+        west2 = setup("spr_npc_daphni_walk_west_0");
+        west3 = setup("spr_npc_daphni_west_3");
 
-            south0 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_south_0.png"));
-            south1 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_walk_south_1.png"));
-            south2 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_south_2.png"));
-            south3 = ImageIO.read(getClass().getClassLoader().getResource("player/spr_npc_daphni_south_3.png"));
+        south0 = setup("spr_npc_daphni_walk_south_0");
+        south1 = setup("spr_npc_daphni_walk_south_1");
+        south2 = setup("spr_npc_daphni_south_2");
+        south3 = setup("spr_npc_daphni_south_3");
+    }
 
-            idleImage = south0; // Default idle sprite
+    public BufferedImage setup (String imageName){
 
-        } catch (IOException e) {
-            System.err.println("Error loading player sprites: " + e.getMessage());
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try{
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + imageName + ".png")));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return image;
     }
 
     public void update() {
@@ -89,13 +102,19 @@ public class Player extends Entity {
             direction = "right";
         }
 
-        // Check Tile & Entity Collision
+        // **Step 1: Reset Collision Flag**
         collisionOn = false;
+
+        // **Step 2: Check Tile Collision (Walls, Water, etc.)**
         gp.cChecker.checkTile(this);
 
-        // If no collision, move the player **only when moving**
+        // **Step 3: Check Object Collision (Detect objects but still move)**
+        int objIndex = gp.cChecker.checkObject(this, true);
+        pickUpObject(objIndex);
+
+        // **Step 4: Move Player if No Tile Collision**
         if (!collisionOn && isMoving) {
-            System.out.println("Moving " + direction + " - No collision detected");
+//            System.out.println("Moving " + direction + " - No collision detected");
             switch (direction) {
                 case "up" -> worldY -= speed;
                 case "down" -> worldY += speed;
@@ -104,7 +123,7 @@ public class Player extends Entity {
             }
         }
 
-        // Handle sprite animation
+        // **Step 5: Handle Sprite Animation**
         if (isMoving) {
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -112,7 +131,7 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         } else {
-            // Only update idleImage when not moving
+            // **Idle animation when not moving**
             idleImage = switch (direction) {
                 case "up" -> north0;
                 case "down" -> south0;
@@ -120,6 +139,47 @@ public class Player extends Entity {
                 case "right" -> east0;
                 default -> south0;
             };
+        }
+    }
+
+    public void pickUpObject (int i){
+        if (i != 999){
+
+            String objectName = gp.obj[i].name;
+
+            switch(objectName){
+                case "Key":
+                    gp.playSE(1);
+                    hasKey++;
+                    gp.obj[i] = null;
+                   gp.ui.showMessage("Acquired Key!");
+                    break;
+
+                case "Door":
+                    if (hasKey == 0){
+                        gp.ui.showMessage("It's locked.");
+                    }
+                    if (hasKey > 0 ){
+                        gp.ui.showMessage("Door unlocked.");
+                        gp.playSE(3);
+                        gp.obj[i] = null;
+                        hasKey--;
+                    }
+                    System.out.println("Key: "+hasKey);
+                    break;
+
+                case "Book":
+                    gp.ui.showMessage("Acquired \"Godspeed\"");
+                    gp.playSE(0);
+                    speed +=0.5;
+                    gp.obj[i] = null;
+                    break;
+
+//                case ""  : //end
+//                gp.ui.gameFinished();
+//                gp.stopMusic();
+//                break;
+            }
         }
     }
 
@@ -136,6 +196,6 @@ public class Player extends Entity {
                 : idleImage;
 
         int playerSize = (int) (gp.tileSize * 1.5); // Increases only player size
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 }
