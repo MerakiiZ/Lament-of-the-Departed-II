@@ -4,85 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20631d4d-f436-40f6-89b8-53113f9e6468" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/landofthedepartedii.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="20631d4d-f436-40f6-89b8-53113f9e6468" name="Changes" comment="first commit yey">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/black_tile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/black_tile_interactable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/blue_tile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/chest.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/crate.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/crate1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/crate3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/floor_carpet_down.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/floor_carpet_down_endL.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/floor_carpet_down_endR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/floor_carpet_up.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/floor_carpet_up_endL.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/floor_carpet_up_endR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/library_floor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_down_L.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_down_L_nofloor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_down_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_down_r_nofloor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_up_L.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_up_L_nofloor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_up_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/seats_up_r_nofloor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_doors__right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_doors__right2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_doors_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_doors_left2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_floor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_down.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_leftCorner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_leftCorner_down.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_rightCorner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_rightCorner_down.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/Tiles/train_walls_up.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/entity/Entity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/entity/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/main/GamePanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/main/KeyHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/maps/tiledata.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/maps/tiledata2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/maps/train.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/maps/train2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/maps/train3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/maps/train_trial.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/maps/trial.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_east_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_south_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_south_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_east_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_east_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_north_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_north_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_north_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_south_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_south_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_walk_west_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_daphni_west_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_dapnhi_walk_north_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_dapni_walk_east_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_dapni_walk_west_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/player/spr_npc_darcy_daphni_east_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/sprites/DAphni normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/sprites/DAphni speaking.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/sprites/Phobius normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/sprites/Phobius speak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/tile/CollisionChecker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/tile/Tile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Nikke Mirai/tile/TileManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai/PathFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai/PathFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/NPC_Daphni.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Daphni.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AssetSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AssetSetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/KeyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/UI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/OBJ_Heart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/OBJ_Heart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/SuperObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/SuperObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tile/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/CollisionChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
     </list>
@@ -146,19 +81,18 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="landofthedepartedii" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="landofthedepartedii" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -170,6 +104,21 @@
       <updated>1736428326605</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit yey" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit yey" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

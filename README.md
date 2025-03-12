@@ -1,3 +1,4 @@
-"# RPG-GAME-Nikke-Mirai" 
-"# RPG-GAME-Nikke-Mirai" 
-"# RPG-GAME-Nikke-Mirai" 
+# Lament of the Departed II
+RPG GAME
+_______________________________
+

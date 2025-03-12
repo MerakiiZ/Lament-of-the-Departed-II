@@ -1,5 +1,6 @@
 package main;
 
+import entity.NPC_Daphni;
 import object.OBJ_Book;
 import object.OBJ_Door;
 import object.OBJ_Key;
@@ -34,4 +35,12 @@ public class AssetSetter {
         gp.obj[3].worldX = 16 * gp.tileSize;
         gp.obj[3].worldY = 54 * gp.tileSize;
     }
+
+    public void setNPC(){
+        gp.npc[0] = new NPC_Daphni(gp);
+        gp.npc[0].worldX = gp.tileSize * 44;
+        gp.npc[0].worldY = gp.tileSize * 52;
+    }
+
+    // col 44, row 52
 }

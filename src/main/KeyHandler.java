@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener {
     GamePanel gamePanel;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
     //DEBUG
-    boolean checkDrawTime;
+    boolean showDebugText;
 
     public KeyHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -57,11 +57,11 @@ public class KeyHandler implements KeyListener {
             }
 
             if (code == KeyEvent.VK_T){
-                if (checkDrawTime == false){
-                    checkDrawTime = true;
+                if (showDebugText == false){
+                    showDebugText = true;
                 }
-                else if (checkDrawTime == true){
-                    checkDrawTime = false;
+                else if (showDebugText == true){
+                    showDebugText = false;
                 }
 
             }

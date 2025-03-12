@@ -13,7 +13,6 @@ import java.util.Objects;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyH;
 
     public final int screenX;
@@ -24,7 +23,7 @@ public class Player extends Entity {
     BufferedImage idleImage;
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -48,6 +47,10 @@ public class Player extends Entity {
         speed = 4;
         direction = "down"; // Default direction
         idleImage = null;  // Ensure it is initialized
+
+        // PLAYER  STATUS
+        maxLife = 6;
+        life = maxLife;
     }
 
     public void getPlayerImage() {
@@ -111,6 +114,11 @@ public class Player extends Entity {
         // **Step 3: Check Object Collision (Detect objects but still move)**
         int objIndex = gp.cChecker.checkObject(this, true);
         pickUpObject(objIndex);
+
+        // CHECK NPC COLLISION
+        int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+        interactNPC(npcIndex);
+
 
         // **Step 4: Move Player if No Tile Collision**
         if (!collisionOn && isMoving) {
@@ -182,6 +190,13 @@ public class Player extends Entity {
             }
         }
     }
+
+    public void interactNPC(int i){
+        if (i != 999) {
+            System.out.println("Ouch");
+        }
+        }
+
 
 
     public void draw(Graphics2D g2) {

@@ -14,9 +14,10 @@ import java.util.Objects;
 
 public class TileManager {
 
+    public tile.Tile[] Tile;
     GamePanel gp;
     Tile[] tile;
-    int[][] mapTileNum;
+    public int[][] mapTileNum;
 //    boolean drawPath = false;
     ArrayList<String> filenames = new ArrayList<>();
     ArrayList<String> collisionStatus = new ArrayList<>();
