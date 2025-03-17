@@ -16,7 +16,7 @@ public class OBJ_Key extends SuperObject{
 
         name = "Key";
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/key.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/key_1.png")));
             uTool.scaleImage(image, this.gp.tileSize, this.gp.tileSize );
         } catch (IOException e) {
             System.err.println("Error: Key image not found!");

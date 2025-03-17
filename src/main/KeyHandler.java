@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener {
     GamePanel gamePanel;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
     //DEBUG
-    boolean showDebugText;
+    boolean checkDrawTime;
 
     public KeyHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -35,38 +35,55 @@ public class KeyHandler implements KeyListener {
                 gamePanel.menuState.handleKeyPress(KeyEvent.VK_ENTER);
             }
         } else {
-            // GAME CONTROLS
-            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-                upPressed = true;
+            if (gamePanel.gameState == gamePanel.playState){
+                // GAME CONTROLS
+                if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                    upPressed = true;
+                }
+                if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                    leftPressed = true;
+                }
+                if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                    downPressed = true;
+                }
+                if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                    rightPressed = true;
+                }
+                if (code == KeyEvent.VK_P) {
+                    gamePanel.gameState = gamePanel.pauseState;
+                    }
+                if (code == KeyEvent.VK_Z){
+                    enterPressed = true;
+                }
+                }
+
+                if (code == KeyEvent.VK_T){
+                    if (checkDrawTime == false){
+                        checkDrawTime = true;
+                    }
+                    else if (checkDrawTime == true){
+                        checkDrawTime = false;
+                    }
             }
-            if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-                leftPressed = true;
+
             }
-            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-                downPressed = true;
-            }
-            if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-                rightPressed = true;
-            }
+        //PAUSE STATE
+        if (gamePanel.gameState == gamePanel.pauseState){
             if (code == KeyEvent.VK_P) {
-               if (gamePanel.gameState == gamePanel.playState){
-                   gamePanel.gameState = gamePanel.pauseState;
-               } else if (gamePanel.gameState == gamePanel.pauseState) {
-                   gamePanel.gameState = gamePanel.playState;
-               }
+                gamePanel.gameState = gamePanel.playState;
             }
+        }
 
-            if (code == KeyEvent.VK_T){
-                if (showDebugText == false){
-                    showDebugText = true;
-                }
-                else if (showDebugText == true){
-                    showDebugText = false;
-                }
-
+        //DIALOUGE STATE
+        else if (gamePanel.gameState == gamePanel.dialougeState){
+            if (code == KeyEvent.VK_Z){
+                gamePanel.gameState = gamePanel.playState;
             }
         }
     }
+
+
+
 
     @Override
     public void keyReleased(KeyEvent e) {

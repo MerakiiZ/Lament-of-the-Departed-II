@@ -32,6 +32,9 @@ public class Entity {
     public boolean collisionOn = false;
     public int actionLookCounter;
 
+    String dialouges[] = new String[20];
+    int dialougesIndex = 0;
+
     boolean isMoving = false;
 
     // Used as fallback if no sprite is selected
@@ -42,13 +45,35 @@ public class Entity {
         this.gp = gp;
     }
 
-    // PLAYER STATUS
-    public int maxLife;
-    public int life;
-
-
     public void setAction() {
         // To be overridden by subclasses
+    }
+
+    public void speak(){
+
+        if (dialouges [dialougesIndex] == null){
+            dialougesIndex = 0;
+        }
+        gp.ui.currentDialouge = dialouges[dialougesIndex];
+        dialougesIndex++;
+
+        switch(gp.player.direction){
+            case"up":
+                direction = "down";
+                break;
+
+            case "down":
+                direction = "up";
+                break;
+
+            case "left":
+                direction = "right";
+                break;
+
+            case "right":
+                direction = "left";
+                break;
+        }
     }
 
     public void update() {

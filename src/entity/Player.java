@@ -23,6 +23,7 @@ public class Player extends Entity {
     BufferedImage idleImage;
 
     public Player(GamePanel gp, KeyHandler keyH) {
+
         super(gp);
         this.keyH = keyH;
 
@@ -47,46 +48,28 @@ public class Player extends Entity {
         speed = 4;
         direction = "down"; // Default direction
         idleImage = null;  // Ensure it is initialized
-
-        // PLAYER  STATUS
-        maxLife = 6;
-        life = maxLife;
     }
 
     public void getPlayerImage() {
-        north0 = setup("spr_npc_daphni_walk_north_0");
-        north1 = setup("spr_npc_dapnhi_walk_north_1");
-        north2 = setup("spr_npc_daphni_walk_north_2");
-        north3 = setup("spr_npc_daphni_walk_north_3");
+        north0 = setup("/player/spr_npc_daphni_walk_north_0");
+        north1 = setup("/player/spr_npc_dapnhi_walk_north_1");
+        north2 = setup("/player/spr_npc_daphni_walk_north_2");
+        north3 = setup("/player/spr_npc_daphni_walk_north_3");
 
-        east0 = setup("spr_npc_daphni_walk_east_0");
-        east1 = setup("spr_npc_dapni_walk_east_1");
-        east2 = setup("spr_npc_daphni_walk_east_2");
-        east3 = setup("spr_npc_daphni_east_3");
+        east0 = setup("/player/spr_npc_daphni_walk_east_0");
+        east1 = setup("/player/spr_npc_dapni_walk_east_1");
+        east2 = setup("/player/spr_npc_daphni_walk_east_2");
+        east3 = setup("/player/spr_npc_daphni_east_3");
 
-        west0 = setup("spr_npc_daphni_walk_west_0");
-        west1 = setup("spr_npc_dapni_walk_west_1");
-        west2 = setup("spr_npc_daphni_walk_west_0");
-        west3 = setup("spr_npc_daphni_west_3");
+        west0 = setup("/player/spr_npc_daphni_walk_west_0");
+        west1 = setup("/player/spr_npc_dapni_walk_west_1");
+        west2 = setup("/player/spr_npc_daphni_walk_west_0");
+        west3 = setup("/player/spr_npc_daphni_west_3");
 
-        south0 = setup("spr_npc_daphni_walk_south_0");
-        south1 = setup("spr_npc_daphni_walk_south_1");
-        south2 = setup("spr_npc_daphni_south_2");
-        south3 = setup("spr_npc_daphni_south_3");
-    }
-
-    public BufferedImage setup (String imageName){
-
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try{
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + imageName + ".png")));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return image;
+        south0 = setup("/player/spr_npc_daphni_walk_south_0");
+        south1 = setup("/player/spr_npc_daphni_walk_south_1");
+        south2 = setup("/player/spr_npc_daphni_south_2");
+        south3 = setup("/player/spr_npc_daphni_south_3");
     }
 
     public void update() {
@@ -115,10 +98,9 @@ public class Player extends Entity {
         int objIndex = gp.cChecker.checkObject(this, true);
         pickUpObject(objIndex);
 
-        // CHECK NPC COLLISION
+        //check NPC
         int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
         interactNPC(npcIndex);
-
 
         // **Step 4: Move Player if No Tile Collision**
         if (!collisionOn && isMoving) {
@@ -191,12 +173,17 @@ public class Player extends Entity {
         }
     }
 
-    public void interactNPC(int i){
-        if (i != 999) {
-            System.out.println("Ouch");
-        }
-        }
+    public void interactNPC (int i){
 
+        if (i != 999) {
+
+            if (gp.keyH.enterPressed == true) {
+                gp.gameState = gp.dialougeState;
+                gp.npc[i].speak();
+            }
+        }
+        gp.keyH.enterPressed = false;
+    }
 
 
     public void draw(Graphics2D g2) {

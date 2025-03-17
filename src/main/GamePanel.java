@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //SYSTEM
     public TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public Sound music = new Sound();
@@ -53,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int dialougeState = 3;
 
     //constructor
     public GamePanel(){
@@ -70,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame(){
 
         aSetter.setObject();
-        aSetter.setNpc();
+        aSetter.sertNpc();
         playMusic(2);
         gameState = playState;
     }
@@ -160,10 +161,8 @@ public class GamePanel extends JPanel implements Runnable {
             menuState.update();
         } else {
             if (gameState == playState) {
-                // PLAYER
                 player.update();
-                // NPC
-                for(int i = 0; i < npc.length; i++){
+                for (int i = 0; i < npc.length; i++) {
                     if(npc[i] != null){
                         npc[i].update();
                     }
@@ -181,7 +180,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //DEBUG
         long drawStart = 0;
-        if(keyH.showDebugText == true){
+        if(keyH.checkDrawTime == true){
             drawStart = System.nanoTime();
         }
 
@@ -198,12 +197,13 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
 
-            // NPC
-            for(int i = 0; i < npc.length; i++){
+            //NPC
+            for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null){
                     npc[i].draw(g2);
                 }
             }
+
             //PLAYER
             player.draw(g2);
 
@@ -211,22 +211,11 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
 
             //DEBUG
-            if(keyH.showDebugText == true){
+            if(keyH.checkDrawTime == true){
                 long drawEnd = System.nanoTime();
                 long passed = drawEnd - drawStart;
-                g2.setFont(new Font("Arial", Font.PLAIN,20));
                 g2.setColor(Color.white);
-                int x = 10;
-                int y = 400;
-                int lineHeight = 20;
-
-                g2.drawString("WorldX: " + player.worldX, x, y); y += lineHeight;
-                g2.drawString("WorldY: " + player.worldY, x, y); y += lineHeight;
-                g2.drawString("Col: " + (player.worldX + player.solidArea.x)/tileSize, x, y); y += lineHeight;
-                g2.drawString("Row: " + (player.worldY + player.solidArea.y)/tileSize, x, y); y += lineHeight;
-
-
-                g2.drawString("Draw time: " + passed, x, y);
+                g2.drawString("Draw time: " + passed, 10, 400);
                 System.out.println("Draw time: " + passed);
             }
 

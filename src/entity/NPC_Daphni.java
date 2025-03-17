@@ -12,12 +12,12 @@ public class NPC_Daphni extends Entity{
 
     public NPC_Daphni(GamePanel gp) {
         super(gp);
-//        worldX = gp.tileSize * 69;
-//        worldY = gp.tileSize * 53;
+
         direction = "south";
         speed = 1;
 
         getImage();
+        setDialouge();
     }
 
     public void getImage() {
@@ -42,6 +42,19 @@ public class NPC_Daphni extends Entity{
         south3 = setup("/player/spr_npc_daphni_south_3");
 
         idleImage = west0;
+    }
+
+    public void setDialouge(){
+
+        dialouges[0] = "A new passenger.";
+        dialouges[1] = "No ticket. No destination";
+        dialouges[2] = "You are not the first soul to arrive here\nwithout knowing why. But answers are not\ngiven freely.";
+        dialouges[3] = "This train carries those who are meant to\nmove on. You—";
+        dialouges[4] = "You are… unmarked";
+        dialouges[5]= "That is dangerous.";
+        dialouges[6]= "Do not stray.\nDo not listen to the whispers.\nAnd whatever you do—";
+        dialouges[7] = "Do not seek the Library of Fates.";
+        dialouges[8] = "...";
     }
 
     @Override
@@ -80,6 +93,17 @@ public class NPC_Daphni extends Entity{
         } else {
             // Reset counter to restart the cycle
             actionCounter = 0;
+        }
+    }
+
+    public void speak(){
+
+        if (dialougesIndex < 8) {
+            gp.ui.currentDialouge = dialouges[dialougesIndex];
+            dialougesIndex++;
+        } else {
+            // Always show dialogue index 8 after finishing the conversation.
+            gp.ui.currentDialouge = dialouges[8];
         }
     }
 }

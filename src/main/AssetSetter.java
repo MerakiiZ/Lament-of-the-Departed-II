@@ -26,10 +26,10 @@ public class AssetSetter {
         gp.obj[1].worldX = 33 * gp.tileSize;
         gp.obj[1].worldY = 55 * gp.tileSize;
 
-        //DOOR
-        gp.obj[2] = new OBJ_Door(gp);
-        gp.obj[2].worldX = 16 * gp.tileSize;
-        gp.obj[2].worldY = 53 * gp.tileSize;
+//        //DOOR
+//        gp.obj[2] = new OBJ_Door(gp);
+//        gp.obj[2].worldX = 15 * gp.tileSize;
+//        gp.obj[2].worldY = 54 * gp.tileSize;
 
         //DOOR
         gp.obj[3] = new OBJ_Door(gp);
@@ -37,7 +37,7 @@ public class AssetSetter {
         gp.obj[3].worldY = 54 * gp.tileSize;
     }
 
-    public void setNpc(){
+    public void sertNpc(){
 
         gp.npc[0]= new NPC_Acacius(gp);
         gp.npc[0].worldX = 42 * gp.tileSize;
@@ -47,6 +47,4 @@ public class AssetSetter {
         gp.npc[1].worldX = 70 * gp.tileSize;
         gp.npc[1].worldY = 53 * gp.tileSize;
     }
-
-    // col 44, row 52
 }

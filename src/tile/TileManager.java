@@ -14,10 +14,9 @@ import java.util.Objects;
 
 public class TileManager {
 
-    public tile.Tile[] Tile;
     GamePanel gp;
     Tile[] tile;
-    public int[][] mapTileNum;
+    int[][] mapTileNum;
 //    boolean drawPath = false;
     ArrayList<String> filenames = new ArrayList<>();
     ArrayList<String> collisionStatus = new ArrayList<>();
@@ -27,7 +26,7 @@ public class TileManager {
         this.gp = gp;
 
         //READ TILE DATA FILE
-        InputStream is = getClass().getResourceAsStream("/maps/tiledata_train3.txt");
+        InputStream is = getClass().getResourceAsStream("/maps/train3_tile_data.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         //GETTING TILE NAMES AND COLLISION FROM THE FILE

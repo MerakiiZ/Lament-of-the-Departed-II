@@ -176,11 +176,11 @@ public class CollisionChecker {
         return index;
     }
 
-    // NPC
+    //check NPC OR MONSTER COLLISION
     public int checkEntity(Entity entity, Entity[] target) {
         int index = 999; // Default: No object collision
 
-        for (int i = 0; i < gp.obj.length; i++) {
+        for (int i = 0; i < target.length; i++) {
 
             if (target[i] != null) {
 
@@ -202,20 +202,26 @@ public class CollisionChecker {
                         if (entity.solidArea.intersects(target[i].solidArea)) {
                             entity.collisionOn = true;
                             index = i;
+
                         }
                         break;
+
                     case "down":
                         entity.solidArea.y += entity.speed;
                         if (entity.solidArea.intersects(target[i].solidArea)) {
                             entity.collisionOn = true;
                             index = i;
+
                         }
+
                         break;
+
                     case "left":
                         entity.solidArea.x -= entity.speed;
                         if (entity.solidArea.intersects(target[i].solidArea)) {
                             entity.collisionOn = true;
                             index = i;
+
                         }
                         break;
                     case "right":
@@ -223,9 +229,11 @@ public class CollisionChecker {
                         if (entity.solidArea.intersects(target[i].solidArea)) {
                             entity.collisionOn = true;
                             index = i;
+
+                            break;
                         }
-                        break;
                 }
+
 
 //                // Check if player intersects object
 //                if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
@@ -236,51 +244,58 @@ public class CollisionChecker {
 //                    }
 //                }
 
-                // Reset positions after checking
-                entity.solidArea.x = entity.solidAreaDefaultX;
-                entity.solidArea.y = entity.solidAreaDefaultY;
-                assert target[i] != null;
-                target[i].solidArea.x = target[i].solidAreaDefaultX;
-                target[i].solidArea.y = target[i].solidAreaDefaultY;
-            }
+                        // Reset positions after checking
+                        entity.solidArea.x = entity.solidAreaDefaultX;
+                        entity.solidArea.y = entity.solidAreaDefaultY;
+                        assert target[i] != null;
+                        target[i].solidArea.x = target[i].solidAreaDefaultX;
+                        target[i].solidArea.y = target[i].solidAreaDefaultY;
 
+            }
         }
         return index;
     }
 
-    public void checkPlayer (Entity entity) {
-
+    public void checkPlayer (Entity entity){
         entity.solidArea.x = entity.worldX + entity.solidArea.x;
         entity.solidArea.y = entity.worldY + entity.solidArea.y;
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        gp.player.solidArea.y =gp.player.worldY + gp.player.solidArea.y;
 
         switch (entity.direction) {
             case "up":
                 entity.solidArea.y -= entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;
+
                 }
                 break;
+
             case "down":
                 entity.solidArea.y += entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;
+
                 }
+
                 break;
+
             case "left":
                 entity.solidArea.x -= entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;
+
                 }
                 break;
             case "right":
                 entity.solidArea.x += entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;
+
+                    break;
                 }
-                break;
         }
+
 
 //                // Check if player intersects object
 //                if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
@@ -294,7 +309,7 @@ public class CollisionChecker {
         // Reset positions after checking
         entity.solidArea.x = entity.solidAreaDefaultX;
         entity.solidArea.y = entity.solidAreaDefaultY;
-        assert gp.player != null;
+        assert gp.player!= null;
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
     }

@@ -17,7 +17,7 @@ public class OBJ_Book extends SuperObject{
         name = "Book";
         collision = true;
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/book.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/book1.png")));
             uTool.scaleImage(image, this.gp.tileSize, this.gp.tileSize );
         } catch (IOException e) {
             System.err.println("Error: Book image not found!");

@@ -73,14 +73,14 @@ public class PathFinder {
         int col = 0;
         int row = 0;
 
-        while (col < gp.maxWorldCol && row < gp.maxWorldRow){
-            // SET SOLID NODE
-            // CHECK TILES
-            int tileNum = gp.tileM.mapTileNum[col][row];
-            if(gp.tileM.Tile[tileNum].collision){
-                node[col][row].solid = true;
-            }
-        }
+//        while (col < gp.maxWorldCol && row < gp.maxWorldRow){
+//            // SET SOLID NODE
+//            // CHECK TILES
+//            int tileNum = gp.tileM.mapTileNum[col][row];
+//            if(gp.tileM.Tile[tileNum].collision){
+//                node[col][row].solid = true;
+//            }
+//        }
     }
 
 
