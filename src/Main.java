@@ -10,10 +10,12 @@ import java.util.Objects;
 
 public class Main {
 
+    public static JFrame window;
+
     public static void main(String[] args) {
 
         //create Frame
-        JFrame window = new JFrame();
+        window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //user can xit the window
         window.setResizable(false); //so the window cannot be resized
         window.setTitle("A Lament for the Departed II");

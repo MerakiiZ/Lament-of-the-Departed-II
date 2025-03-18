@@ -1,6 +1,7 @@
 package ai;
 
 public class Node {
+    public int fCost;
     Node parent;
     public int col;
     public int row;
