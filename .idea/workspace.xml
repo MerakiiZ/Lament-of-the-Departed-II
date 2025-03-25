@@ -5,17 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0ec4bfa-5978-4b7d-b038-22285628aa59" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ai/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ai/PathFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai/PathFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/res/player/Thumbs.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_east_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_south_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_south_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_east_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_east_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_north_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_north_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_north_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_south_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_south_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_west_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_west_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_dapnhi_walk_north_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_dapni_walk_east_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_dapni_walk_west_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_darcy_daphni_east_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +62,8 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Problems",
+    "last_opened_file_path": "Y:/C202301027/JAVA FINALS/Lament-of-the-Departed-II",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2"
   }

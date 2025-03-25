@@ -51,25 +51,25 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        north0 = setup("/player/spr_npc_daphni_walk_north_0");
-        north1 = setup("/player/spr_npc_dapnhi_walk_north_1");
-        north2 = setup("/player/spr_npc_daphni_walk_north_2");
-        north3 = setup("/player/spr_npc_daphni_walk_north_3");
+        north0 = setup("/player/player_walk_north_0");
+        north1 = setup("/player/player_walk_north_1");
+        north2 = setup("/player/player_walk_north_2");
+        north3 = setup("/player/player_walk_north_3");
 
-        east0 = setup("/player/spr_npc_daphni_walk_east_0");
-        east1 = setup("/player/spr_npc_dapni_walk_east_1");
-        east2 = setup("/player/spr_npc_daphni_walk_east_2");
-        east3 = setup("/player/spr_npc_daphni_east_3");
+        east0 = setup("/player/player_walk_east_0");
+        east1 = setup("/player/player_walk_east_1");
+        east2 = setup("/player/player_walk_east_2");
+        east3 = setup("/player/player_walk_east_3");
 
-        west0 = setup("/player/spr_npc_daphni_walk_west_0");
-        west1 = setup("/player/spr_npc_dapni_walk_west_1");
-        west2 = setup("/player/spr_npc_daphni_walk_west_0");
-        west3 = setup("/player/spr_npc_daphni_west_3");
+        west0 = setup("/player/player_walk_west_0");
+        west1 = setup("/player/player_walk_west_1");
+        west2 = setup("/player/player_walk_west_0");
+        west3 = setup("/player/player_walk_west_3");
 
-        south0 = setup("/player/spr_npc_daphni_walk_south_0");
-        south1 = setup("/player/spr_npc_daphni_walk_south_1");
-        south2 = setup("/player/spr_npc_daphni_south_2");
-        south3 = setup("/player/spr_npc_daphni_south_3");
+        south0 = setup("/player/player_walk_south_0");
+        south1 = setup("/player/player_walk_south_1");
+        south2 = setup("/player/player_walk_south_2");
+        south3 = setup("/player/player_walk_south_3");
     }
 
     public void update() {
