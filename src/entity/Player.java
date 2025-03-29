@@ -22,6 +22,8 @@ public class Player extends Entity {
 
     BufferedImage idleImage;
 
+    public Entity targetNPC;
+
     public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp);
@@ -193,6 +195,7 @@ public class Player extends Entity {
             if (gp.keyH.enterPressed == true) {
                 gp.gameState = gp.dialougeState;
                 gp.npc[gp.currentMap][i].speak();
+                targetNPC = gp.npc[gp.currentMap][i];
             }
         }
 

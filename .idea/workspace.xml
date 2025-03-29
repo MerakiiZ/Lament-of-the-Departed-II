@@ -7,6 +7,8 @@
     <list default="true" id="e0ec4bfa-5978-4b7d-b038-22285628aa59" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/entity/NPC_Mihr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Mihr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/KeyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/UI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

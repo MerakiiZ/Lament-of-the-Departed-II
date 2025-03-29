@@ -21,6 +21,13 @@ public class UI {
     public String currentDialouge = "";
     public String speakerName= "";
 
+    // FADINg
+    public boolean showChoice = false;
+    public String[] choiceText;
+    public int choiceIndex = 0;
+    public String fadeState = "normal"; // "normal", "fading", "black"
+    public float fadeAlpha = 0f;
+
     public UI(GamePanel gp){
         this.gp = gp;
 
@@ -74,6 +81,22 @@ public class UI {
         //DIALOUGE STATE
         if (gp.gameState == gp.dialougeState){
             drawDialougeScreen();
+        }
+
+        if (fadeState.equals("fading")) {
+            fadeAlpha += 0.05f;
+            if (fadeAlpha >= 1.0f) {
+                fadeAlpha = 1.0f;
+                fadeState = "black";
+                // Trigger any events that should happen after full fade
+            }
+            // Draw black rectangle with increasing alpha
+            g2.setColor(new Color(0, 0, 0, fadeAlpha));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        } else if (fadeState.equals("black")) {
+            // Keep screen black
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
         }
 
 //    }
@@ -132,6 +155,22 @@ public class UI {
         for(String line: currentDialouge.split("\n")){
             g2.drawString(line, x, y);
             y += 40;
+        }
+        // CHOICE
+        if (showChoice) {
+            // Draw choice box
+            g2.setColor(Color.DARK_GRAY);
+            g2.fillRect(x, y + height + 20, width, 60);
+
+            // Draw choice text
+            for (int i = 0; i < choiceText.length; i++) {
+                if (i == choiceIndex) {
+                    g2.setColor(Color.YELLOW); // Highlight selected choice
+                } else {
+                    g2.setColor(Color.WHITE);
+                }
+                g2.drawString(choiceText[i], x + 20, y + height + 50 + (i * 30));
+            }
         }
     }
 

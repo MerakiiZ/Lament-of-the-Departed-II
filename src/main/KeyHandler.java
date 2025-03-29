@@ -1,5 +1,7 @@
 package main;
 
+import entity.NPC_Mihr;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -70,6 +72,7 @@ public class KeyHandler implements KeyListener {
                     gamePanel.tileM.switchMap(nextMap);
                 }
 
+
             }
         //PAUSE STATE
         if (gamePanel.gameState == gamePanel.pauseState){
@@ -83,6 +86,17 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_Z){
                 gamePanel.gameState = gamePanel.playState;
             }
+        }
+
+        if (gamePanel.gameState == gamePanel.dialougeState && gamePanel.ui.showChoice) {
+            if (code == KeyEvent.VK_UP || code == KeyEvent.VK_DOWN) {
+                gamePanel.ui.choiceIndex = (gamePanel.ui.choiceIndex == 0) ? 1 : 0;
+            } else if (code == KeyEvent.VK_ENTER) {
+                if (gamePanel.player.targetNPC != null) {
+                    ((NPC_Mihr)gamePanel.player.targetNPC).handleChoice(gamePanel.ui.choiceIndex);
+                }
+            }
+            return;
         }
     }
 
