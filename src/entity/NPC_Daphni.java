@@ -97,6 +97,8 @@ public class NPC_Daphni extends Entity{
     }
 
     public void speak(){
+        gp.ui.speakerName = "Daphni";
+        gp.currentSpeaker = "Daphni";
 
         if (dialougesIndex < 8) {
             gp.ui.currentDialouge = dialouges[dialougesIndex];

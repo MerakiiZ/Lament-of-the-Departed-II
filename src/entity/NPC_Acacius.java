@@ -43,6 +43,8 @@ public class NPC_Acacius extends Entity{
 
     @Override
     public void speak(){
+        gp.ui.speakerName = "Acacius";
+        gp.currentSpeaker = "Acacius";
 
         if (dialougesIndex < 8) {
             gp.ui.currentDialouge = dialouges[dialougesIndex];

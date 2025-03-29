@@ -2,8 +2,10 @@ package main;
 
 import object.OBJ_Key;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public class UI {
 
@@ -13,9 +15,11 @@ public class UI {
     BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = " ";
+    public boolean dialogueFinished = false;
     int messageCounter = 0;
 //    public boolean gameFinished = false;
     public String currentDialouge = "";
+    public String speakerName= "";
 
     public UI(GamePanel gp){
         this.gp = gp;
@@ -23,6 +27,8 @@ public class UI {
         text_32 = new Font("Press Start 2P", Font.PLAIN, 21);
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
+
+
     }
 
     public void showMessage(String text){
@@ -35,24 +41,6 @@ public class UI {
 
         this.g2 = g2;
 
-//        if(gameFinished == true) {
-
-//        g2.setFont(text_32);
-//        g2.setColor(Color.color);
-
-//        String text;
-//        int textLength;
-//        int x;
-//        int y;
-
-//        text = "To be continued";
-//        textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-
-//        int x = gp.screenWidth/2 - textLength/2;
-//        int y = gp.screeHeight/2 - (gp.tileSize*3);
-//        g2.drawString (text, x, y);
-//        }
-//        else {
 
         g2.setFont(text_32);
         g2.setColor(Color.white);
@@ -106,14 +94,37 @@ public class UI {
 
     public void drawDialougeScreen(){
 
-        //window
+        // === DRAW PORTRAIT IF SPEAKER IS DAPHNI OR PHOIBUS ===
+        int portraitWidth = gp.tileSize * 4;
+        int portraitHeight = gp.tileSize * 6;
+        int portraitX = gp.screenWidth - portraitWidth - (gp.tileSize * 2);
+        int portraitY = gp.screenHeight - portraitHeight - (gp.tileSize * 2);
+
+        // === DRAW DIALOGUE BOX FIRST ===
         int x = gp.tileSize * 2;
         int height = gp.tileSize * 4;
-        int y = gp.screenHeight - height - (gp.tileSize / 2);  // Adjusted for bottom placement
+        int y = gp.screenHeight - height - (gp.tileSize / 2);
         int width = gp.screenWidth - (gp.tileSize * 4);
 
-        drawSubWindow( x, y, width, height);
+        drawSubWindow(x, y, width, height); // 🟦 Draw box first
 
+        // === NOW DRAW NAME TAG ON TOP ===
+        if (!speakerName.isEmpty()) {
+            int nameX = x + 20;
+            int nameY = y - 10; // slightly above the dialogue box
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16F));
+
+            Color bgColor = new Color(0, 0, 0, 180);
+            int padding = 8;
+            int nameWidth = g2.getFontMetrics().stringWidth(speakerName);
+            g2.setColor(bgColor);
+            g2.fillRoundRect(nameX - padding, nameY - 20, nameWidth + padding * 2, 30, 15, 15);
+
+            g2.setColor(Color.white);
+            g2.drawString(speakerName, nameX, nameY);
+        }
+
+        // === FINALLY DRAW DIALOGUE TEXT ===
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 12));
         x += gp.tileSize;
         y += gp.tileSize;
@@ -122,7 +133,6 @@ public class UI {
             g2.drawString(line, x, y);
             y += 40;
         }
-
     }
 
     public void drawSubWindow(int x, int y, int width, int height){

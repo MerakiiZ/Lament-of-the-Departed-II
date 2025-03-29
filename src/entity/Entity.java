@@ -32,8 +32,10 @@ public class Entity {
     public boolean collisionOn = false;
     public int actionLookCounter;
 
-    String dialouges[] = new String[20];
-    int dialougesIndex = 0;
+    public String dialouges[] = new String[20];
+    public int dialougesIndex = 0; // unified naming
+    public boolean dialogueFinished = false;
+
 
     boolean isMoving = false;
 

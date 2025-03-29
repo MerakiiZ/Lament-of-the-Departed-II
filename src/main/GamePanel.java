@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Array;
+import java.security.PublicKey;
 
 import static com.sun.tools.javac.Main.*;
 import static java.awt.SystemColor.window;
@@ -59,11 +60,13 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
     Thread gameThread;
+    public boolean checkEvents = true;
 
     //ENTITY AND OBJECT
     public Player player = new Player (this, keyH);
     public SuperObject obj[][] = new SuperObject[maxMap][10];
     public Entity npc[][] = new Entity[maxMap][10];
+    public String currentSpeaker = "";
 
     //GAME STATE
     public int gameState;
@@ -228,6 +231,9 @@ public class GamePanel extends JPanel implements Runnable {
         g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
         g.dispose();
     }
+
+
+
     public void playMusic (int i){
         music.setFile(i);
         music.play();

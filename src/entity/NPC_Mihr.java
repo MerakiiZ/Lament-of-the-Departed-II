@@ -2,9 +2,9 @@ package entity;
 
 import main.GamePanel;
 
-public class NPC_Phoibus extends Entity {
+public class NPC_Mihr extends Entity {
 
-    public NPC_Phoibus(GamePanel gp) {
+    public NPC_Mihr(GamePanel gp) {
         super(gp);
 
         direction = "north";
@@ -15,10 +15,10 @@ public class NPC_Phoibus extends Entity {
     }
 
     public void getImage() {
-        north0 = setup("/npc/phoibus_sprite");
-        south0 = setup("/npc/phoibus_sprite");
-        west0 = setup("/npc/phoibus_sprite");
-        east0 = setup("/npc/phoibus_sprite");
+        north0 = setup("/npc/mihr_sprite");
+        south0 = setup("/npc/mihr_sprite");
+        west0 = setup("/npc/mihr_sprite");
+        east0 = setup("/npc/mihr_sprite");
 
         idleImage = west0;
     }
@@ -43,8 +43,8 @@ public class NPC_Phoibus extends Entity {
 
     @Override
     public void speak(){
-        gp.ui.speakerName = "Phoibus";
-        gp.currentSpeaker = "Phoibus";
+        gp.ui.speakerName = "???";
+        gp.currentSpeaker = "???";
 
         if (dialougesIndex < 8) {
             gp.ui.currentDialouge = dialouges[dialougesIndex];

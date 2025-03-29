@@ -14,9 +14,9 @@ public class OBJ_Secret extends SuperObject {
         this.gp = gp;
 
         name = "Secret";
-        collision = true;
+        collision = false;
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/door.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/portal.png")));
             uTool.scaleImage(image, this.gp.tileSize, this.gp.tileSize );
         } catch (IOException e) {
             System.err.println("Error: door image not found!");

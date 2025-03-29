@@ -32,26 +32,61 @@ public class EventHandler {
             }
         }
 
-        setupEvent(0, 38, 53, "any", "You found a secret spot!"); // Map 0, position (38,53)
-        setupEvent(1, 12, 25, "down", "Press DOWN to interact"); // Map 1, position (12,25)
+        // teleport setup (from map 0 to map 1)
+        setupEvent(0, 4, 52, "any", "Strange...");
+        setupTeleport(0, 4, 52, "any",
+                1, 35, 52, "Step into the glowing portal? (Press Z)");
+
+
     }
 
     public void checkEvent() {
-        // Exit current event if needed
-        if (eventActive && currentEventLocation != null &&
-                !isPlayerInEventArea(currentEventMap, currentEventLocation.x, currentEventLocation.y)) {
-            exitEvent();
-            return;
+        // Handle pending teleport first
+        if (eventActive && currentEventLocation != null) {
+            EventRect currentEvent = eventRects[currentEventMap][currentEventLocation.x][currentEventLocation.y];
+
+            if (currentEvent.teleportPending && gp.keyH.enterPressed) {
+                // Disable event checking during teleport
+                boolean wasCheckingEvents = gp.checkEvents;
+                gp.checkEvents = false;
+
+                // Execute teleport
+                gp.currentMap = currentEvent.teleportMap;
+                gp.player.worldX = currentEvent.teleportCol * gp.tileSize;
+                gp.player.worldY = currentEvent.teleportRow * gp.tileSize;
+
+                // Reset states
+                currentEvent.teleportPending = false;
+                exitEvent();
+
+                // Re-enable event checking after a small delay
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                gp.checkEvents = true;
+                            }
+                        },
+                        200  // 200ms delay
+                );
+                return;
+            }
+
+            // Normal event exit check
+            if (!isPlayerInEventArea(currentEventMap, currentEventLocation.x, currentEventLocation.y)) {
+                exitEvent();
+                return;
+            }
         }
 
-        // Only check for new events if none are active
-        if (!eventActive) {
+        // Only check for new events if none are active AND event checking is enabled
+        if (!eventActive && gp.checkEvents) {
             checkForEventsNearPlayer();
         }
     }
 
     private void checkForEventsNearPlayer() {
-        // Check 3x3 area around player for better responsiveness
+        // Check 3x3 area around player
         int playerCol = gp.player.worldX / gp.tileSize;
         int playerRow = gp.player.worldY / gp.tileSize;
 
@@ -62,16 +97,13 @@ public class EventHandler {
 
                     if (hit(gp.currentMap, col, row,
                             eventRects[gp.currentMap][col][row].eventDirection)) {
-                        testEvent(gp.dialougeState,
-                                eventRects[gp.currentMap][col][row].eventMessage);
+                        testEvent(eventRects[gp.currentMap][col][row]);
                         return; // Only trigger one event at a time
                     }
                 }
             }
         }
     }
-
-
 
     private boolean isPlayerInEventArea(int map, int col, int row) {
         if (gp.player == null || !isValidPosition(map, col, row)) return false;
@@ -134,6 +166,7 @@ public class EventHandler {
                 hit = true;
                 currentEventLocation = new Point(col, row);
                 currentEventMap = map;
+                eventActive = true;
             }
         }
 
@@ -152,17 +185,21 @@ public class EventHandler {
                 row >= 0 && row < gp.maxWorldRow;
     }
 
-    public void testEvent(int gameState, String eventMessage) {
-        if (gp.ui == null) return;
-
-        gp.gameState = gameState;
-        gp.ui.currentDialouge = "Event triggered! Move away to exit.";
-        eventActive = true;
+    public void testEvent(EventRect event) {
+        if (event.isTeleport) {
+            // First show the message
+            gp.ui.currentDialouge = event.eventMessage;
+            gp.gameState = gp.dialougeState;
+            event.teleportPending = true;  // Mark for teleport after message
+        } else {
+            // Regular dialogue event
+            gp.ui.currentDialouge = event.eventMessage;
+            gp.gameState = gp.dialougeState;
+        }
     }
 
     private void setupEvent(int map, int col, int row, String direction, String message) {
         if (isValidPosition(map, col, row)) {
-            // Mark this position as having an event
             eventRects[map][col][row].hasEvent = true;
             eventRects[map][col][row].eventDirection = direction;
             eventRects[map][col][row].eventMessage = message;
@@ -174,5 +211,18 @@ public class EventHandler {
         gp.ui.currentDialouge = "";
         eventActive = false;
         currentEventLocation = null;
+    }
+
+    public void setupTeleport(int map, int col, int row, String direction,
+                              int targetMap, int targetCol, int targetRow, String message) {
+        if (isValidPosition(map, col, row)) {
+            eventRects[map][col][row].hasEvent = true;
+            eventRects[map][col][row].isTeleport = true;
+            eventRects[map][col][row].eventDirection = direction;
+            eventRects[map][col][row].teleportMap = targetMap;
+            eventRects[map][col][row].teleportCol = targetCol;
+            eventRects[map][col][row].teleportRow = targetRow;
+            eventRects[map][col][row].eventMessage = message;
+        }
     }
 }
