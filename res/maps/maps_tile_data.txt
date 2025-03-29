@@ -2,8 +2,10 @@ black_tile.png
 true
 black_tile_walkable.png
 false
-chest.png
+blood_floor.png
 true
+chest.png
+false
 crate.png
 true
 crate1.png
@@ -11,7 +13,7 @@ true
 crate3.png
 true
 floor_carpet_Center.png
-false
+true
 floor_carpet_Center_endL.png
 false
 floor_carpet_Center_endR.png
@@ -31,7 +33,7 @@ false
 library_floor.png
 false
 railing.png
-true
+false
 railing_L.png
 true
 railing_R.png
@@ -61,7 +63,7 @@ true
 table_edgeR.png
 true
 train_doors_left.png
-false
+true
 train_doors_left2.png
 false
 train_doors__right.png
@@ -71,7 +73,7 @@ false
 train_floor.png
 false
 train_walls_down.png
-true
+false
 train_walls_left.png
 true
 train_walls_leftCorner.png
@@ -86,3 +88,4 @@ train_walls_rightCorner_down.png
 true
 train_walls_up.png
 true
+

@@ -56,7 +56,7 @@ public class KeyHandler implements KeyListener {
                     enterPressed = true;
                 }
                 }
-
+                // DEBUG
                 if (code == KeyEvent.VK_T){
                     if (showDebugText == false){
                         showDebugText = true;
@@ -64,7 +64,11 @@ public class KeyHandler implements KeyListener {
                     else if (showDebugText == true){
                         showDebugText = false;
                     }
-            }
+                }
+                if(code == KeyEvent.VK_R) {
+                    int nextMap = (gamePanel.currentMap + 1) % 2; // Toggle between 0 and 1
+                    gamePanel.tileM.switchMap(nextMap);
+                }
 
             }
         //PAUSE STATE

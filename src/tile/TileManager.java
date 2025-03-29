@@ -16,7 +16,7 @@ public class TileManager {
 
     GamePanel gp;
     Tile[] tile;
-    public int[][] mapTileNum;
+    public int[][][] mapTileNum;
 //    boolean drawPath = false;
     ArrayList<String> filenames = new ArrayList<>();
     ArrayList<String> collisionStatus = new ArrayList<>();
@@ -26,7 +26,7 @@ public class TileManager {
         this.gp = gp;
 
         //READ TILE DATA FILE
-        InputStream is = getClass().getResourceAsStream("/maps/train3_tile_data.txt");
+        InputStream is = getClass().getResourceAsStream("/maps/mapfinal_tile_data.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         //GETTING TILE NAMES AND COLLISION FROM THE FILE
@@ -48,7 +48,7 @@ public class TileManager {
         getTileImage();
 
         //GET THE maxWorldCol & Row
-        is = getClass().getResourceAsStream("/maps/train3.txt");
+        is = getClass().getResourceAsStream("/maps/train_map.txt");
         br = new BufferedReader(new InputStreamReader(is));
 
         try {
@@ -57,7 +57,7 @@ public class TileManager {
 
             gp.maxWorldCol = maxTile.length;
             gp.maxWorldRow = maxTile.length;
-            mapTileNum = new int[gp.maxWorldRow][gp.maxWorldCol];  // Fixed row/col indexing
+            mapTileNum = new int[gp.maxMap][gp.maxWorldRow][gp.maxWorldCol];  // Fixed row/col indexing
 
             br.close();
 
@@ -65,7 +65,8 @@ public class TileManager {
             System.out.println("Exception!");
         }
         getTileImage();
-        loadMap("/maps/train3.txt", 0);
+        loadMap("/maps/train_map.txt", 0);
+        loadMap("/maps/secret.txt", 1);
     }
 
     public void getTileImage() {
@@ -131,7 +132,7 @@ public class TileManager {
                 }
 
                 for (int col = 0; col < gp.maxWorldCol; col++) {
-                    mapTileNum[row][col] = Integer.parseInt(numbers[col]);
+                    mapTileNum[map][row][col] = Integer.parseInt(numbers[col]);
                 }
 
                 row++;
@@ -145,13 +146,28 @@ public class TileManager {
         }
     }
 
+    public void switchMap(int map) {
+        gp.currentMap = map;
+        // Reset player position when switching maps (optional)
+        gp.player.worldX = gp.tileSize * 35; // Set to default position
+        gp.player.worldY = gp.tileSize * 52;
+
+        // Reload the specific map
+        switch(map) {
+            case 0: loadMap("/maps/train_map.txt", 0); break;
+            case 1: loadMap("/maps/secret.txt", 1); break;
+        }
+        System.out.println("Switching to map: " + map); // Add this in switchMap()
+        // Force a repaint or update
+        gp.repaint();
+    }
 
     public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            int tileNum = mapTileNum[worldRow][worldCol]; // Fixed indexing
+            int tileNum = mapTileNum[gp.currentMap][worldRow][worldCol]; // Fixed indexing
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;

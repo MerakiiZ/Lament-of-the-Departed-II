@@ -18,7 +18,7 @@ import static java.awt.SystemColor.window;
 
 public class GamePanel extends JPanel implements Runnable {
     public boolean inMenu = true; // Start the game in the menu
-    public Array currentMap;
+//    public Array currentMap;
     MenuState menuState;
 
     //Screen Settings
@@ -41,6 +41,8 @@ public class GamePanel extends JPanel implements Runnable {
     //WORLD SETTINGS
     public int maxWorldCol;
     public int maxWorldRow;
+    public int maxMap = 10;
+    public int currentMap = 0;
 //    public final int worldWidth = tileSize * maxWorldCol;
 //    public final int worldHeight = tileSize * maxWorldRow;
 
@@ -55,12 +57,13 @@ public class GamePanel extends JPanel implements Runnable {
     public Sound music = new Sound();
     public Sound se = new Sound();
     public UI ui = new UI(this);
+    public EventHandler eHandler = new EventHandler(this);
     Thread gameThread;
 
     //ENTITY AND OBJECT
     public Player player = new Player (this, keyH);
-    public SuperObject obj[] = new SuperObject[10];
-    public Entity npc[] = new Entity[10];
+    public SuperObject obj[][] = new SuperObject[maxMap][10];
+    public Entity npc[][] = new Entity[maxMap][10];
 
     //GAME STATE
     public int gameState;
@@ -99,39 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    //Game Loop
-    @Override
-   /* public void run() {
 
-        //sleep method
-        double drawInterval = 1000000000/FPS;
-        double nextDrawtime = System.nanoTime() + drawInterval;
-
-        while(gameThread != null){
-
-            //Update
-            update();
-            //Draw with updated info
-            repaint();
-
-            try {
-                double remainingTime = nextDrawtime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
-
-                if (remainingTime <0){
-                    remainingTime = 0;
-                }
-
-                Thread.sleep((long) remainingTime);
-
-                nextDrawtime += drawInterval;
-
-            } catch (InterruptedException e) {
-                //TODO
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     //delta method
 
@@ -182,9 +153,9 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             if (gameState == playState) {
                 player.update();
-                for (int i = 0; i < npc.length; i++) {
-                    if(npc[i] != null){
-                        npc[i].update();
+                for (int i = 0; i < npc[1].length; i++) {
+                    if(npc[currentMap][i] != null){
+                        npc[currentMap][i].update();
                     }
                 }
             }
@@ -210,16 +181,16 @@ public class GamePanel extends JPanel implements Runnable {
             //TILE
             tileM.draw(g2);
             //OBJECT
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i]!=null){
-                    obj[i].draw(g2, this);
+            for (int i = 0; i < obj[1].length; i++) {
+                if (obj[currentMap][i]!=null){
+                    obj[currentMap][i].draw(g2, this);
                 }
             }
 
             //NPC
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null){
-                    npc[i].draw(g2);
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[currentMap][i] != null){
+                    npc[currentMap][i].draw(g2);
                 }
             }
 
@@ -250,56 +221,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
     }
-    //draw
-//    public void paintComponent(Graphics g){
-//        super.paintComponent(g);
-//        Graphics2D g2 = (Graphics2D) g;
-//
-//        //DEBUG
-//        long drawStart = 0;
-//        if(keyH.checkDrawTime == true){
-//            drawStart = System.nanoTime();
-//        }
-//
-//        if (inMenu) {
-//            menuState.draw(g2);
-//        } else {
-//
-//            //TILE
-//            tileM.draw(g2);
-//            //OBJECT
-//            for (int i = 0; i < obj.length; i++) {
-//                if (obj[i]!=null){
-//                    obj[i].draw(g2, this);
-//                }
-//            }
-//
-//            //NPC
-//            for (int i = 0; i < npc.length; i++) {
-//                if (npc[i] != null){
-//                    npc[i].draw(g2);
-//                }
-//            }
-//
-//            //PLAYER
-//            player.draw(g2);
-//
-//            //UI
-//            ui.draw(g2);
-//
-//            //DEBUG
-//            if(keyH.checkDrawTime == true){
-//                long drawEnd = System.nanoTime();
-//                long passed = drawEnd - drawStart;
-//                g2.setColor(Color.white);
-//                g2.drawString("Draw time: " + passed, 10, 400);
-//                System.out.println("Draw time: " + passed);
-//            }
-//
-//        }
-//
-//        g2.dispose();
-//    }
+
     public void drawToScreen(){
 
         Graphics g = getGraphics();

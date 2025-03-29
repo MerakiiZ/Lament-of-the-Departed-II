@@ -102,6 +102,11 @@ public class Player extends Entity {
         int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
         interactNPC(npcIndex);
 
+        // CHECK EVENT
+        gp.eHandler.checkEvent();
+
+        gp.keyH.enterPressed = false;
+
         // **Step 4: Move Player if No Tile Collision**
         if (!collisionOn && isMoving) {
 //            System.out.println("Moving " + direction + " - No collision detected");
@@ -135,13 +140,13 @@ public class Player extends Entity {
     public void pickUpObject (int i){
         if (i != 999){
 
-            String objectName = gp.obj[i].name;
+            String objectName = gp.obj[gp.currentMap][i].name;
 
             switch(objectName){
                 case "Key":
                     gp.playSE(1);
                     hasKey++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                    gp.ui.showMessage("Acquired Key!");
                     break;
 
@@ -152,7 +157,7 @@ public class Player extends Entity {
                     if (hasKey > 0 ){
                         gp.ui.showMessage("Door unlocked.");
                         gp.playSE(3);
-                        gp.obj[i] = null;
+                        gp.obj[gp.currentMap][i] = null;
                         hasKey--;
                     }
                     System.out.println("Key: "+hasKey);
@@ -162,7 +167,7 @@ public class Player extends Entity {
                     gp.ui.showMessage("Acquired \"Godspeed\"");
                     gp.playSE(0);
                     speed +=0.5;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     break;
 
 //                case ""  : //end
@@ -179,10 +184,10 @@ public class Player extends Entity {
 
             if (gp.keyH.enterPressed == true) {
                 gp.gameState = gp.dialougeState;
-                gp.npc[i].speak();
+                gp.npc[gp.currentMap][i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
+
     }
 
 
