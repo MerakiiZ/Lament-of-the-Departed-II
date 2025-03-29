@@ -45,6 +45,9 @@ public class Player extends Entity {
     public void setDefaultValues() {
         worldX = gp.tileSize * 35;
         worldY = gp.tileSize * 52;
+            //  TEMP
+//        worldX = gp.tileSize * 4;
+//        worldY = gp.tileSize * 55;
         speed = 4;
         direction = "down"; // Default direction
         idleImage = null;  // Ensure it is initialized
@@ -74,6 +77,9 @@ public class Player extends Entity {
 
     public void update() {
         boolean isMoving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
+        if (gp.isTeleporting){
+            return;
+        }
 
         if (keyH.upPressed) {
             direction = "up";
@@ -135,6 +141,8 @@ public class Player extends Entity {
                 default -> south0;
             };
         }
+
+
     }
 
     public void pickUpObject (int i){

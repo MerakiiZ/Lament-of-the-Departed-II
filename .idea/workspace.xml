@@ -5,24 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0ec4bfa-5978-4b7d-b038-22285628aa59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/entity/NPC_Ghost1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/NPC_Ghost2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/NPC_Shein.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/NPC_Sir.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/NPC_WiseGirl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/JumpScare.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/NPC_Acacius.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Acacius.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/NPC_Daphni.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Daphni.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/NPC_Phoibus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Phoibus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AssetSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AssetSetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/EventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/EventRect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/EventRect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Sound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Sound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/UI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/object/OBJ_Secret.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/OBJ_Secret.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

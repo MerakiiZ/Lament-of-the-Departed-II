@@ -13,13 +13,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Array;
 import java.security.PublicKey;
+import java.util.Random;
 
 import static com.sun.tools.javac.Main.*;
 import static java.awt.SystemColor.window;
 
 public class GamePanel extends JPanel implements Runnable {
     public boolean inMenu = true; // Start the game in the menu
-//    public Array currentMap;
+    public int transitionState;
+    //    public Array currentMap;
     MenuState menuState;
 
     //Screen Settings
@@ -44,8 +46,6 @@ public class GamePanel extends JPanel implements Runnable {
     public int maxWorldRow;
     public int maxMap = 10;
     public int currentMap = 0;
-//    public final int worldWidth = tileSize * maxWorldCol;
-//    public final int worldHeight = tileSize * maxWorldRow;
 
     //FPS
     int FPS = 60;
@@ -67,6 +67,15 @@ public class GamePanel extends JPanel implements Runnable {
     public SuperObject obj[][] = new SuperObject[maxMap][10];
     public Entity npc[][] = new Entity[maxMap][10];
     public String currentSpeaker = "";
+
+    // VISUAL EFFECTS
+    public float teleportAlpha = 0f;
+    public boolean isTeleporting = false;
+    public int teleportCounter = 0;
+    public final float TELEPORT_FADE_SPEED = 0.05f;
+    final Object teleportLock = new Object();
+
+
 
     //GAME STATE
     public int gameState;
@@ -142,7 +151,6 @@ public class GamePanel extends JPanel implements Runnable {
                 drawCount = 0;
                 timer = 0;
             }
-
         }
     }
 
@@ -151,10 +159,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Upper corner sa Java X:0 ; Y:0
     public void update() {
+       if (isTeleporting){
+           return;
+       }
+
         if (inMenu) {
             menuState.update();
         } else {
-            if (gameState == playState) {
+            if (gameState == playState && !isTeleporting) {
                 player.update();
                 for (int i = 0; i < npc[1].length; i++) {
                     if(npc[currentMap][i] != null){
@@ -200,6 +212,15 @@ public class GamePanel extends JPanel implements Runnable {
             //PLAYER
             player.draw(g2);
 
+            // Draw effects on top
+            synchronized(teleportLock) {
+                if (isTeleporting) {
+                    g2.setColor(new Color(107, 21, 15, (int)(teleportAlpha * 255)));
+                    g2.fillRect(0, 0, screenWidth, screenHeight);
+                }
+            }
+
+
             //UI
             ui.draw(g2);
 
@@ -228,10 +249,34 @@ public class GamePanel extends JPanel implements Runnable {
     public void drawToScreen(){
 
         Graphics g = getGraphics();
-        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
-        g.dispose();
-    }
+        if (g != null) {
+            try {
+                // Draw the buffered image
+                g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
 
+                // Ensure the OS processes the graphics
+                Toolkit.getDefaultToolkit().sync();
+            } finally {
+                g.dispose();
+            }
+        }
+    }
+// TELEPORT
+public void updateTeleportEffect() {}
+
+
+    private void drawTeleportParticles(Graphics2D g2, int x, int y) {
+        Random rand = new Random();
+        for (int i = 0; i < 20; i++) {
+            int particleX = x + player.solidArea.x + rand.nextInt(player.solidArea.width);
+            int particleY = y + player.solidArea.y + rand.nextInt(player.solidArea.height);
+            int size = rand.nextInt(5) + 2;
+            g2.setColor(new Color(100 + rand.nextInt(155), 150 + rand.nextInt(105), 255, 150));
+            g2.fillOval(screenWidth + particleX - player.worldX + player.screenX,
+                    screenHeight + particleY - player.worldY + player.screenY,
+                    size, size);
+        }
+    }
 
 
     public void playMusic (int i){

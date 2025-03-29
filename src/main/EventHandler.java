@@ -1,5 +1,6 @@
 package main;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class EventHandler {
@@ -41,34 +42,20 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        // Handle pending teleport first
+        // Handle pending teleport
         if (eventActive && currentEventLocation != null) {
             EventRect currentEvent = eventRects[currentEventMap][currentEventLocation.x][currentEventLocation.y];
 
-            if (currentEvent.teleportPending && gp.keyH.enterPressed) {
-                // Disable event checking during teleport
-                boolean wasCheckingEvents = gp.checkEvents;
-                gp.checkEvents = false;
+            if (currentEvent.teleportPending) {
+                if (gp.keyH.enterPressed) {
+                    startTeleport(currentEvent);
+                    return;
+                }
 
-                // Execute teleport
-                gp.currentMap = currentEvent.teleportMap;
-                gp.player.worldX = currentEvent.teleportCol * gp.tileSize;
-                gp.player.worldY = currentEvent.teleportRow * gp.tileSize;
-
-                // Reset states
-                currentEvent.teleportPending = false;
-                exitEvent();
-
-                // Re-enable event checking after a small delay
-                new java.util.Timer().schedule(
-                        new java.util.TimerTask() {
-                            @Override
-                            public void run() {
-                                gp.checkEvents = true;
-                            }
-                        },
-                        200  // 200ms delay
-                );
+                // Check if player moved away
+                if (!isPlayerInEventArea(currentEventMap, currentEventLocation.x, currentEventLocation.y)) {
+                    exitEvent();
+                }
                 return;
             }
 
@@ -79,11 +66,12 @@ public class EventHandler {
             }
         }
 
-        // Only check for new events if none are active AND event checking is enabled
-        if (!eventActive && gp.checkEvents) {
+        // Check for new events
+        if (!eventActive && !gp.isTeleporting) {
             checkForEventsNearPlayer();
         }
     }
+
 
     private void checkForEventsNearPlayer() {
         // Check 3x3 area around player
@@ -186,11 +174,24 @@ public class EventHandler {
     }
 
     public void testEvent(EventRect event) {
+//        if (event.isTeleport) {
+//            // First show the message
+//            gp.ui.currentDialouge = event.eventMessage;
+//            gp.gameState = gp.dialougeState;
+//            event.teleportPending = true;  // Mark for teleport after message
+//        } else {
+//            // Regular dialogue event
+//            gp.ui.currentDialouge = event.eventMessage;
+//            gp.gameState = gp.dialougeState;
+//        }
+
         if (event.isTeleport) {
-            // First show the message
             gp.ui.currentDialouge = event.eventMessage;
             gp.gameState = gp.dialougeState;
-            event.teleportPending = true;  // Mark for teleport after message
+            event.teleportPending = true;
+
+            // Set up teleport confirmation
+            gp.keyH.enterPressed = false; // Reset enter key state
         } else {
             // Regular dialogue event
             gp.ui.currentDialouge = event.eventMessage;
@@ -213,6 +214,8 @@ public class EventHandler {
         currentEventLocation = null;
     }
 
+    // TELEPORTING EVENT
+
     public void setupTeleport(int map, int col, int row, String direction,
                               int targetMap, int targetCol, int targetRow, String message) {
         if (isValidPosition(map, col, row)) {
@@ -224,5 +227,68 @@ public class EventHandler {
             eventRects[map][col][row].teleportRow = targetRow;
             eventRects[map][col][row].eventMessage = message;
         }
+    }
+
+    public void startTeleport(EventRect event) {
+        // Start teleport sequence
+        synchronized(gp.teleportLock) {
+            gp.isTeleporting = true;
+            gp.teleportAlpha = 0f;
+        }
+
+        // Play teleport sound
+        gp.playSE(5);
+
+        // Execute teleport in background thread
+        new Thread(() -> {
+            try {
+                // PHASE 1: Fade out (0 → 1.0 alpha)
+                while (true) {
+                    synchronized(gp.teleportLock) {
+                        gp.teleportAlpha = Math.min(1.0f, gp.teleportAlpha + gp.TELEPORT_FADE_SPEED);
+                        if (gp.teleportAlpha >= 1.0f) break;
+                    }
+                    Thread.sleep(16); // ~60fps
+                }
+
+                // PHASE 2: Actual map transition
+                gp.currentMap = event.teleportMap;
+                gp.player.worldX = event.teleportCol * gp.tileSize;
+                gp.player.worldY = event.teleportRow * gp.tileSize;
+
+                // Force immediate screen update
+                SwingUtilities.invokeLater(() -> {
+                    gp.drawToTempScreen();
+                    gp.drawToScreen();
+                });
+
+                // PHASE 3: Fade in (1.0 → 0 alpha)
+                while (true) {
+                    synchronized(gp.teleportLock) {
+                        gp.teleportAlpha = Math.max(0f, gp.teleportAlpha - gp.TELEPORT_FADE_SPEED);
+                        if (gp.teleportAlpha <= 0f) break;
+                    }
+                    Thread.sleep(16);
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                // PHASE 4: Clean up
+                synchronized(gp.teleportLock) {
+                    gp.isTeleporting = false;
+                }
+                event.teleportPending = false;
+                gp.gameState = gp.playState;
+                gp.playSE(6); // Arrival sound
+            }
+        }).start();
+    }
+
+    private void completeTeleport(EventRect event) {
+        gp.isTeleporting = false;
+        event.teleportPending = false;
+        gp.gameState = gp.playState;
+        exitEvent();
     }
 }

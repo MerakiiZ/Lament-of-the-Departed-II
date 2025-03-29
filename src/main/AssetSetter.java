@@ -73,7 +73,10 @@ public class AssetSetter {
         gp.npc[mapNum][7].worldY = 56 * gp.tileSize;
 
         // NPC FOR MAP 2
-
+        mapNum = 1;
+        gp.npc[mapNum][8] = new NPC_Mihr(gp);
+        gp.npc[mapNum][8].worldX = 34 * gp.tileSize;
+        gp.npc[mapNum][8].worldY = 29 * gp.tileSize;
 
     }
 }
