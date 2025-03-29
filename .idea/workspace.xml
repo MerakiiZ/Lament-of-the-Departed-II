@@ -5,31 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0ec4bfa-5978-4b7d-b038-22285628aa59" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/entity/NPC_Phoibus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/res/player/Thumbs.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_east_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_south_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_south_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_east_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_east_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_north_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_north_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_north_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_south_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_south_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_walk_west_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_daphni_west_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_dapnhi_walk_north_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_dapni_walk_east_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_dapni_walk_west_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/player/spr_npc_darcy_daphni_east_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AssetSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AssetSetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/KeyHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,19 +48,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "Y:/C202301027/JAVA FINALS/Lament-of-the-Departed-II",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;Y:/C202301027/JAVA FINALS/Lament-of-the-Departed-II&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
