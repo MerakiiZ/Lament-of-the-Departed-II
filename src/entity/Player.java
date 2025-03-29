@@ -43,11 +43,11 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 35;
-        worldY = gp.tileSize * 52;
+//        worldX = gp.tileSize * 35;
+//        worldY = gp.tileSize * 52;
             //  TEMP
-//        worldX = gp.tileSize * 4;
-//        worldY = gp.tileSize * 55;
+        worldX = gp.tileSize * 4;
+        worldY = gp.tileSize * 55;
         speed = 4;
         direction = "down"; // Default direction
         idleImage = null;  // Ensure it is initialized
