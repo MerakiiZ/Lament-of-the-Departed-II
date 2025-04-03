@@ -36,6 +36,10 @@ public class Entity {
     public int dialougesIndex = 0; // unified naming
     public boolean dialogueFinished = false;
 
+    // CHOICES
+    public boolean isAwaitingChoice = false;
+    public String[] choiceOptions;
+    public int currentChoiceIndex = 0;
 
     boolean isMoving = false;
 
@@ -51,27 +55,23 @@ public class Entity {
         // To be overridden by subclasses
     }
 
-    public void speak(){
-
-        if (dialouges [dialougesIndex] == null){
+    public void speak() {
+        if (dialouges[dialougesIndex] == null) {
             dialougesIndex = 0;
         }
         gp.ui.currentDialouge = dialouges[dialougesIndex];
         dialougesIndex++;
 
-        switch(gp.player.direction){
-            case"up":
+        switch(gp.player.direction) {
+            case "up":
                 direction = "down";
                 break;
-
             case "down":
                 direction = "up";
                 break;
-
             case "left":
                 direction = "right";
                 break;
-
             case "right":
                 direction = "left";
                 break;
@@ -89,9 +89,7 @@ public class Entity {
         gp.cChecker.checkPlayer(this);
 
         // **Step 4: Move Player if No Tile Collision**
-
         if (!collisionOn && isMoving) {
-//            System.out.println("Moving " + direction + " - No collision detected");
             switch (direction) {
                 case "up" -> worldY -= speed;
                 case "down" -> worldY += speed;
@@ -204,5 +202,16 @@ public class Entity {
             e.printStackTrace();
         }
         return image;
+    }
+
+
+    public void handleChoice(int choice) {
+        System.out.println("Base entity choice handler - override this!");
+    }
+
+    public void setupChoices(String[] options) {
+        this.choiceOptions = options;
+        this.currentChoiceIndex = 0;
+        this.isAwaitingChoice = true;
     }
 }

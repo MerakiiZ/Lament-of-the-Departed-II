@@ -22,7 +22,7 @@ public class Player extends Entity {
 
     BufferedImage idleImage;
 
-    public Entity targetNPC;
+    public Entity targetNPC = null;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -180,25 +180,28 @@ public class Player extends Entity {
                     gp.obj[gp.currentMap][i] = null;
                     break;
 
-//                case ""  : //end
-//                gp.ui.gameFinished();
-//                gp.stopMusic();
-//                break;
             }
         }
     }
 
     public void interactNPC (int i){
+        if (i != 999 && gp.keyH.enterPressed) {
+            targetNPC = gp.npc[gp.currentMap][i];
+            System.out.println("Interacting with: " + targetNPC.getClass().getSimpleName());
 
-        if (i != 999) {
-
-            if (gp.keyH.enterPressed == true) {
-                gp.gameState = gp.dialougeState;
-                gp.npc[gp.currentMap][i].speak();
-                targetNPC = gp.npc[gp.currentMap][i];
+            // Reset any existing choice state
+            if (targetNPC.isAwaitingChoice) {
+                targetNPC.isAwaitingChoice = false;
+                gp.ui.showChoice = false;
             }
-        }
 
+            gp.gameState = gp.dialougeState;
+            targetNPC.speak();
+        }
+    }
+
+    public void clearTargetNPC() {
+        targetNPC = null;
     }
 
 

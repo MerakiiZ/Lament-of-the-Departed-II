@@ -21,12 +21,15 @@ public class UI {
     public String currentDialouge = "";
     public String speakerName= "";
 
-    // FADINg
+    // CHOICES
     public boolean showChoice = false;
     public String[] choiceText;
     public int choiceIndex = 0;
-    public String fadeState = "normal"; // "normal", "fading", "black"
-    public float fadeAlpha = 0f;
+
+    // FADE
+    public String fadeState = "none"; // "none", "fading", "black"
+    public float fadeAlpha = 0f; // O is transparent, 1 is opaque
+    private Runnable postFadeAction = null;
 
     public UI(GamePanel gp){
         this.gp = gp;
@@ -49,12 +52,12 @@ public class UI {
         this.g2 = g2;
 
 
+        // Draw regular UI elements first
         g2.setFont(text_32);
         g2.setColor(Color.white);
         g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
         g2.drawString("= " + gp.player.hasKey, 74, 60);
 
-        //MESSAGE
         if (messageOn == true) {
 
             g2.setFont(g2.getFont().deriveFont(15F));
@@ -69,37 +72,29 @@ public class UI {
         }
 
         //PLAY STATE
-        if (gp.gameState == gp.playState){
+        if (gp.gameState == gp.playState) {
 
         }
 
+        //END STATE
+        if (gp.gameState == gp.endState) {
+            drawEndScreen();
+        }
+
         //PAUSE STATE
-        if(gp.gameState == gp.pauseState){
+        if (gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
 
         //DIALOUGE STATE
-        if (gp.gameState == gp.dialougeState){
+        if (gp.gameState == gp.dialougeState) {
             drawDialougeScreen();
         }
 
-        if (fadeState.equals("fading")) {
-            fadeAlpha += 0.05f;
-            if (fadeAlpha >= 1.0f) {
-                fadeAlpha = 1.0f;
-                fadeState = "black";
-                // Trigger any events that should happen after full fade
-            }
-            // Draw black rectangle with increasing alpha
-            g2.setColor(new Color(0, 0, 0, fadeAlpha));
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-        } else if (fadeState.equals("black")) {
-            // Keep screen black
-            g2.setColor(Color.BLACK);
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        // Handle fade effect (drawn last)
+        if (gp.gameState != gp.endState) {
+            drawFade(g2);
         }
-
-//    }
     }
 
     public void drawPauseScreen(){
@@ -115,26 +110,20 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    public void drawDialougeScreen(){
-
-        // === DRAW PORTRAIT IF SPEAKER IS DAPHNI OR PHOIBUS ===
-        int portraitWidth = gp.tileSize * 4;
-        int portraitHeight = gp.tileSize * 6;
-        int portraitX = gp.screenWidth - portraitWidth - (gp.tileSize * 2);
-        int portraitY = gp.screenHeight - portraitHeight - (gp.tileSize * 2);
-
-        // === DRAW DIALOGUE BOX FIRST ===
+    public void drawDialougeScreen() {
+        // === DIALOGUE BOX SETTINGS ===
         int x = gp.tileSize * 2;
+        int width = gp.screenWidth - (gp.tileSize * 4);
         int height = gp.tileSize * 4;
         int y = gp.screenHeight - height - (gp.tileSize / 2);
-        int width = gp.screenWidth - (gp.tileSize * 4);
 
-        drawSubWindow(x, y, width, height); // 🟦 Draw box first
+        // === DRAW DIALOGUE BOX ===
+        drawSubWindow(x, y, width, height);
 
-        // === NOW DRAW NAME TAG ON TOP ===
+        // === DRAW SPEAKER NAME ===
         if (!speakerName.isEmpty()) {
             int nameX = x + 20;
-            int nameY = y - 10; // slightly above the dialogue box
+            int nameY = y - 10;
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16F));
 
             Color bgColor = new Color(0, 0, 0, 180);
@@ -147,32 +136,148 @@ public class UI {
             g2.drawString(speakerName, nameX, nameY);
         }
 
-        // === FINALLY DRAW DIALOGUE TEXT ===
+        // === DRAW DIALOGUE TEXT ===
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 12));
-        x += gp.tileSize;
-        y += gp.tileSize;
+        int textX = x + gp.tileSize;
+        int textY = y + gp.tileSize;
 
-        for(String line: currentDialouge.split("\n")){
-            g2.drawString(line, x, y);
-            y += 40;
+        for(String line : currentDialouge.split("\n")) {
+            g2.drawString(line, textX, textY);
+            textY += 40;
         }
-        // CHOICE
-        if (showChoice) {
-            // Draw choice box
-            g2.setColor(Color.DARK_GRAY);
-            g2.fillRect(x, y + height + 20, width, 60);
 
-            // Draw choice text
-            for (int i = 0; i < choiceText.length; i++) {
-                if (i == choiceIndex) {
-                    g2.setColor(Color.YELLOW); // Highlight selected choice
+        // === DRAW CHOICE BOX (INSIDE DIALOGUE WINDOW) ===
+        if (showChoice && gp.player.targetNPC != null) {
+            // Draw choice box
+            int boxX = x + 20;
+            int boxY = y + height - 90;
+            int boxWidth = width - 40;
+
+            drawSubWindow(boxX, boxY, boxWidth, 50);
+
+            // Draw choices
+            for (int i = 0; i < gp.player.targetNPC.choiceOptions.length; i++) {
+                if (i == gp.player.targetNPC.currentChoiceIndex) {
+                    g2.setColor(Color.RED);
+                    g2.fillOval(boxX + 10, boxY + 15 + (i * 20), 8, 8);
                 } else {
                     g2.setColor(Color.WHITE);
                 }
-                g2.drawString(choiceText[i], x + 20, y + height + 50 + (i * 30));
+                g2.drawString(gp.player.targetNPC.choiceOptions[i], boxX + 25, boxY + 20 + (i * 20));
             }
         }
     }
+
+    public void closeDialogue() {
+        currentDialouge = null;
+        showChoice = false; // Important!
+        if (gp.player != null) {
+            gp.player.clearTargetNPC();
+        }
+        gp.gameState = gp.playState;
+    }
+
+    public void startFade(Runnable action) {
+        fadeAlpha = 0f;
+        fadeState = "fading";
+        postFadeAction = action; // Store action to run after fade
+    }
+
+    public void resetFade() {
+        fadeAlpha = 0f;
+        fadeState = "none";
+        postFadeAction = null;
+    }
+
+//    public void drawFade(Graphics2D g2) {
+//        System.out.println("Current gameState: " + gp.gameState);
+//        System.out.println("Current fadeState: " + fadeState + ", alpha: " + fadeAlpha);
+//        if (!fadeState.equals("none")) {
+//            g2.setColor(new Color(0, 0, 0, fadeAlpha));
+//            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+//
+//            if (fadeState.equals("fading")) {
+//                fadeAlpha += 0.05f;
+//                if (fadeAlpha >= 1.0f) {
+//                    fadeState = "complete";
+//                    if (postFadeAction != null) {
+//                        postFadeAction.run();
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    public void drawFade(Graphics2D g2) {
+        if (!fadeState.equals("none")) {
+            // Always draw the fade overlay
+            g2.setColor(new Color(0, 0, 0, fadeAlpha));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+            if (fadeState.equals("fading")) {
+                fadeAlpha += 0.05f;
+                if (fadeAlpha >= 1.0f) {
+                    fadeState = "complete"; // Changed from "black" to "complete"
+                    if (postFadeAction != null) {
+                        postFadeAction.run();
+                        postFadeAction = null;
+                    }
+                }
+            }
+        }
+    }
+
+
+    // END SCREEN
+    public void drawEndScreen() {
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        //Gradient background
+        GradientPaint gradient = new GradientPaint(0, 0, new Color(10, 10, 30),
+                0, gp.screenHeight, new Color(0, 0, 0));
+        g2.setPaint(gradient);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+
+            // Title
+            g2.setFont(new Font("Serif", Font.BOLD, 72));
+            g2.setColor(new Color(200, 150, 50));
+
+            String title = "Journey's End";
+            int x = getXForCenteredText(title, g2);
+            int y = gp.screenHeight / 3;
+            g2.drawString(title, x, y);
+
+            // Ending message
+            g2.setFont(new Font("Serif", Font.PLAIN, 24));
+            g2.setColor(Color.WHITE);
+
+            String[] lines = {
+                    "You helped Mihr escape the forsaken realm,",
+                    "fulfilling an ancient pact between mortals and spirits.",
+                    "",
+                    "As the last shadows fade, you feel a strange peace",
+                    "settle over the land...",
+                    "",
+                    "Press Enter to return to title"
+            };
+
+            y += 80;
+            for (String line : lines) {
+                if (!line.isEmpty()) {
+                    x = getXForCenteredText(line, g2);
+                    g2.drawString(line, x, y);
+                }
+                y += 30;
+            }
+    }
+
+
+    private int getXForCenteredText(String text, Graphics2D g2) {
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        return gp.screenWidth/2 - length/2;
+    }
+
 
     public void drawSubWindow(int x, int y, int width, int height){
 

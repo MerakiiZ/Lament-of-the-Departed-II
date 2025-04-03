@@ -82,6 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialougeState = 3;
+    public final int endState = 4;
 
 
     //constructor
@@ -159,77 +160,87 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Upper corner sa Java X:0 ; Y:0
     public void update() {
-       if (isTeleporting){
-           return;
-       }
+        if (isTeleporting) {
+            return;
+        }
+
+        // Handle fade transitions first
+        if (ui.fadeState.equals("fading")) {
+            ui.fadeAlpha += 0.05f;
+            if (ui.fadeAlpha >= 1.0f) {
+                ui.fadeState = "complete";
+            }
+            return; // Skip other updates during fade
+        }
 
         if (inMenu) {
             menuState.update();
         } else {
-            if (gameState == playState && !isTeleporting) {
+            if (gameState == playState) {
                 player.update();
                 for (int i = 0; i < npc[1].length; i++) {
-                    if(npc[currentMap][i] != null){
+                    if (npc[currentMap][i] != null) {
                         npc[currentMap][i].update();
                     }
                 }
             }
-            if (gameState == pauseState) {
-            }
         }
     }
 
-    public void drawToTempScreen(){
+    public void drawToTempScreen() {
         g2.setColor(Color.black);
         g2.fillRect(0, 0, screenWidth, screenHeight);
 
-        //DEBUG
+
+        if (gameState == endState) {
+            ui.drawEndScreen();
+        }
+
+        // DEBUG timing
         long drawStart = 0;
-        if(keyH.showDebugText == true){
+        if (keyH.showDebugText) {
             drawStart = System.nanoTime();
         }
 
         if (inMenu) {
             menuState.draw(g2);
         } else {
-
-            //TILE
+            // TILE
             tileM.draw(g2);
-            //OBJECT
+
+            // OBJECT
             for (int i = 0; i < obj[1].length; i++) {
-                if (obj[currentMap][i]!=null){
+                if (obj[currentMap][i] != null) {
                     obj[currentMap][i].draw(g2, this);
                 }
             }
 
-            //NPC
+            // NPC
             for (int i = 0; i < npc[1].length; i++) {
-                if (npc[currentMap][i] != null){
+                if (npc[currentMap][i] != null) {
                     npc[currentMap][i].draw(g2);
                 }
             }
 
-            //PLAYER
+            // PLAYER
             player.draw(g2);
 
-            // Draw effects on top
-            synchronized(teleportLock) {
+            // Teleport effect
+            synchronized (teleportLock) {
                 if (isTeleporting) {
                     g2.setColor(new Color(107, 21, 15, (int)(teleportAlpha * 255)));
                     g2.fillRect(0, 0, screenWidth, screenHeight);
                 }
             }
 
-
-            //UI
+            // UI (always drawn except in end state)
             ui.draw(g2);
 
-            //DEBUG
-            if(keyH.showDebugText == true){
+            // DEBUG info
+            if (keyH.showDebugText) {
                 long drawEnd = System.nanoTime();
                 long passed = drawEnd - drawStart;
-
-                g2.setFont(new Font("Arial", Font.PLAIN,20));
+                g2.setFont(new Font("Arial", Font.PLAIN, 20));
                 g2.setColor(Color.white);
                 int x = 10;
                 int y = 400;
@@ -240,11 +251,14 @@ public class GamePanel extends JPanel implements Runnable {
                 g2.drawString("Col = " + (player.worldX + player.solidArea.x)/tileSize, x, y); y += lineHeight;
                 g2.drawString("Row = " + (player.worldY + player.solidArea.y)/tileSize, x, y); y += lineHeight;
                 g2.drawString("Draw time: " + passed, x, y);
-                System.out.println("Draw time: " + passed);
             }
-
         }
+
+        ui.drawFade(g2);
+        // Always draw end state if active
+
     }
+
 
     public void drawToScreen(){
 
@@ -263,8 +277,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 // TELEPORT
 public void updateTeleportEffect() {}
-
-
     private void drawTeleportParticles(Graphics2D g2, int x, int y) {
         Random rand = new Random();
         for (int i = 0; i < 20; i++) {
@@ -279,6 +291,30 @@ public void updateTeleportEffect() {}
     }
 
 
+    public void resetGame() {
+        gameState = playState;
+        inMenu = true; // Or true if you want to return to menu
+
+        // Reset player
+        player.setDefaultValues();
+        player.hasKey = 0;
+
+        // Reset UI
+        ui.resetFade();
+        ui.currentDialouge = "";
+        ui.showChoice = false;
+
+        // Reset map
+        currentMap = 0;
+
+        // Stop and restart music
+        stopMusic(2);
+        playMusic(2);
+
+        System.out.println("Game fully reset");
+    }
+
+// MUSIC PLAYERS
     public void playMusic (int i){
         music.setFile(i);
         music.play();

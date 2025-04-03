@@ -32,7 +32,9 @@ public class NPC_Mihr extends Entity {
         dialouges[5] = "I can help you, you know...";
         dialouges[6] = "All you have to do... is help me leave this forsaken place.";
         dialouges[7] = "Do we have a deal?";
-        dialouges[8] = "...";
+        dialouges[8] = "(The man laughs)\nToo Bad...";
+        dialouges[9] = "You'll be stuck here with me.";
+        dialouges[10] = "...";
     }
 
     @Override
@@ -42,48 +44,52 @@ public class NPC_Mihr extends Entity {
 
     @Override
     public void speak() {
-        // Default to "???" if not introduced yet
-        gp.ui.speakerName = "???";
-        gp.currentSpeaker = "???";
+        // Set speaker name
+        gp.ui.speakerName = dialougesIndex > 2 ? "Mihr" : "???";
+        gp.currentSpeaker = dialougesIndex > 2 ? "Mihr" : "???";
 
-        if (dialougesIndex < 7) {
+        // Only show choices at the specific dialogue index (7)
+        if (dialougesIndex == 7) { // Choice dialogue
+            setupChoices(new String[]{"Accept", "Refuse"});
+            gp.ui.showChoice = true;
             gp.ui.currentDialouge = dialouges[dialougesIndex];
+            return;
+        }
+        else if (dialougesIndex < dialouges.length) {
+            gp.ui.currentDialouge = dialouges[dialougesIndex];
+            gp.ui.showChoice = false; // Ensure choices are hidden for other dialogues
             dialougesIndex++;
-
-            // Check if we've passed the introduction point
-            if (dialougesIndex > 2) {
-                gp.ui.speakerName = "Mihr";
-                gp.currentSpeaker = "Mihr";
-            }
         }
-        else if (dialougesIndex == 7) {
-            // Show the choice dialogue
-            gp.ui.currentDialouge = dialouges[dialougesIndex];
-            gp.ui.showChoice = true; // Assuming you have a showChoice boolean in your UI class
-            gp.ui.choiceText = new String[]{"Accept", "Refuse"};
-            gp.ui.speakerName = "Mihr";
-            gp.currentSpeaker = "Mihr";
-
-            // Don't increment dialougesIndex yet - wait for player choice
-        }
-        else if (dialougesIndex == 8) {
-            // Final dialogue after choice is made
-            gp.ui.currentDialouge = dialouges[8];
-            gp.ui.speakerName = "Mihr";
-            gp.currentSpeaker = "Mihr";
-        }
-    }
-
-    // Call this method when player makes a choice
-    public void handleChoice(int choice) {
-        if (dialougesIndex == 7) { // When at the "Do we have a deal?" dialogue
-            if (choice == 0) { // Player chose "Accept"
-                gp.ui.fadeState = "fading";
-                // Trigger any events that should happen after acceptance
-            }
-            dialougesIndex = 8; // Move to next dialogue
+        else {
+            // After all dialogues, show the final one
+            gp.ui.currentDialouge = dialouges[dialouges.length - 1];
             gp.ui.showChoice = false;
-            speak(); // Show the next dialogue
+            // Always show dialogue index 8 after finishing the conversation.
+            gp.ui.currentDialouge = dialouges[8];
         }
     }
+
+    @Override
+    public void handleChoice(int choice) {
+        if (!isAwaitingChoice) return;
+
+        System.out.println("Mihr handling choice: " + choice);
+        gp.ui.showChoice = false;
+        isAwaitingChoice = false;
+
+        if (choice == 0) { // Accept
+            gp.ui.startFade(() -> {
+                gp.gameState = gp.endState;
+                gp.stopMusic(2);
+                gp.playSE(6);
+                gp.ui.fadeAlpha = 0f; // Reset fade so end screen is visible
+                gp.ui.fadeState = "none";
+            });
+        } else {
+            // Refuse logic
+            dialougesIndex++;
+            speak();
+        }
+    }
+
 }
