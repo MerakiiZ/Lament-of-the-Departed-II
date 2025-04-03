@@ -103,7 +103,6 @@ public class KeyHandler implements KeyListener {
             // Choice confirmation
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
                 System.out.println("Choice confirmed!");
-                gamePanel.playSE(5);
                 gamePanel.player.targetNPC.handleChoice(gamePanel.player.targetNPC.currentChoiceIndex);
                 return;
             }

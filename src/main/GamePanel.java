@@ -56,6 +56,9 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public Sound music = new Sound();
+    public Sound menuMusic = new Sound();
+    public Sound gameMusic = new Sound();
+    public Sound endMusic = new Sound();
     public Sound se = new Sound();
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
@@ -102,7 +105,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         aSetter.setObject();
         aSetter.sertNpc();
-        playMusic(2);
+        if(gameState != endState){
+            playMusic(2);
+        }
+        if(gameState == endState) {
+            stopMusic(2);
+        }
         gameState = playState;
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -308,8 +316,7 @@ public void updateTeleportEffect() {}
         currentMap = 0;
 
         // Stop and restart music
-        stopMusic(2);
-        playMusic(2);
+        stopMusic(7);
 
         System.out.println("Game fully reset");
     }
@@ -321,7 +328,15 @@ public void updateTeleportEffect() {}
         music.loop();
     }
 
+    public void playEndMusic() {
+        music.stop(); // Stop whatever is playing
+        music.setFile(7); // Your ending music track
+        music.play();
+        music.loop();
+    }
+
     public void stopMusic (int i){
+        System.out.println("Stopping music track: " + i);
         music.stop();
     }
 

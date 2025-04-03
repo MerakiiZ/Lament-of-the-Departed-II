@@ -80,8 +80,7 @@ public class NPC_Mihr extends Entity {
         if (choice == 0) { // Accept
             gp.ui.startFade(() -> {
                 gp.gameState = gp.endState;
-                gp.stopMusic(2);
-                gp.playSE(6);
+                gp.playEndMusic();
                 gp.ui.fadeAlpha = 0f; // Reset fade so end screen is visible
                 gp.ui.fadeState = "none";
             });

@@ -189,24 +189,6 @@ public class UI {
         postFadeAction = null;
     }
 
-//    public void drawFade(Graphics2D g2) {
-//        System.out.println("Current gameState: " + gp.gameState);
-//        System.out.println("Current fadeState: " + fadeState + ", alpha: " + fadeAlpha);
-//        if (!fadeState.equals("none")) {
-//            g2.setColor(new Color(0, 0, 0, fadeAlpha));
-//            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-//
-//            if (fadeState.equals("fading")) {
-//                fadeAlpha += 0.05f;
-//                if (fadeAlpha >= 1.0f) {
-//                    fadeState = "complete";
-//                    if (postFadeAction != null) {
-//                        postFadeAction.run();
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     public void drawFade(Graphics2D g2) {
         if (!fadeState.equals("none")) {

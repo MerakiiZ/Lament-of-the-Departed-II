@@ -9,6 +9,8 @@ public class Sound {
 
     Clip clip;
     URL soundURL[] = new URL [30];
+    private boolean isPlaying = false;
+
 //    UtilityTool ut = new UtilityTool();
 
     public Sound() {
@@ -20,6 +22,7 @@ public class Sound {
         soundURL[4] = getClass().getResource("/sound/door_locked_wav.wav");
         soundURL[5] =  getClass().getResource("/sound/jumpscare_wav.wav");
         soundURL[6] =  getClass().getResource("/sound/teleport.wav");
+        soundURL[7] =  getClass().getResource("/sound/ending_music.wav");
 
         for (int i = 0; i < 3; i++) {
             System.out.println("Sound file " + i + " path: " + soundURL[i]);
@@ -43,19 +46,23 @@ public class Sound {
     public void play() {
 
         clip.start();
+        isPlaying = true;
 
     }
 
     public void loop() {
 
         clip.loop(Clip.LOOP_CONTINUOUSLY);
+        isPlaying = true;
 
     }
 
     public void stop() {
-
-        clip.stop();
-
+        if (clip != null && isPlaying) {
+            clip.stop();
+            clip.flush();
+            isPlaying = false;
+        }
     }
 
 }
