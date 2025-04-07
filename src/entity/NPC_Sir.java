@@ -45,8 +45,8 @@ public class NPC_Sir extends Entity{
 
     @Override
     public void speak(){
-        gp.ui.speakerName = "Soul";
-        gp.currentSpeaker = "Soul";
+        gp.ui.speakerName = "Sir Soul";
+        gp.currentSpeaker = "Sir Soul";
 
         if (dialougesIndex < 8) {
             gp.ui.currentDialouge = dialouges[dialougesIndex];

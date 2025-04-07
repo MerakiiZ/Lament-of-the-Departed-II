@@ -45,8 +45,8 @@ public class NPC_Mihr extends Entity {
     @Override
     public void speak() {
         // Set speaker name
-        gp.ui.speakerName = dialougesIndex > 2 ? "Mihr" : "???";
-        gp.currentSpeaker = dialougesIndex > 2 ? "Mihr" : "???";
+        gp.ui.speakerName = dialougesIndex > 1 ? "Mihr" : "???";
+        gp.currentSpeaker = dialougesIndex > 1 ? "Mihr" : "???";
 
         // Only show choices at the specific dialogue index (7)
         if (dialougesIndex == 7) { // Choice dialogue

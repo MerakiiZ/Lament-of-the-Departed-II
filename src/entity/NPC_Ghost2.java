@@ -26,7 +26,7 @@ public class NPC_Ghost2 extends Entity{
     public void setDialouge(){
 
         dialouges[0] = "hehe";
-        dialouges[1] = "(You could here her slightly giggling, to no one in particular)";
+        dialouges[1] = "(You could hear her slightly giggling, to no one in particular)";
         dialouges[2] = "HEHEHEHEHE";
         dialouges[3] = "Can you see them outside?";
         dialouges[4] = "The eyes... can you see them?";

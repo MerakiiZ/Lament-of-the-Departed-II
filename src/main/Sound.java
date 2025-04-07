@@ -44,24 +44,23 @@ public class Sound {
 
 
     public void play() {
-
-        clip.start();
-        isPlaying = true;
-
+        if (clip != null) {
+            clip.setFramePosition(0); // rewind
+            clip.start();
+        }
     }
 
     public void loop() {
-
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-        isPlaying = true;
-
+        if (clip != null) {
+            clip.setFramePosition(0); // rewind
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
 
     public void stop() {
-        if (clip != null && isPlaying) {
+        if (clip != null) {
             clip.stop();
-            clip.flush();
-            isPlaying = false;
+            clip.close(); // optional cleanup
         }
     }
 
