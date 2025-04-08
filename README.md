@@ -1,4 +1,8 @@
 # Lament of the Departed II
-RPG GAME
+
+## Final project for Java 
+2nd Year Computer Science
 _______________________________
+
+YEY
 
