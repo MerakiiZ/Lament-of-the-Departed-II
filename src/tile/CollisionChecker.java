@@ -92,11 +92,6 @@ public class CollisionChecker {
 
             if (gp.obj[gp.currentMap][i] != null) {
 
-//                // Save original positions
-//                int entitySolidX = entity.solidArea.x;
-//                int entitySolidY = entity.solidArea.y;
-//                int objSolidX = gp.obj[i].solidArea.x;
-//                int objSolidY = gp.obj[i].solidArea.y;
 
                 // Set real positions
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
@@ -155,14 +150,6 @@ public class CollisionChecker {
                         break;
                 }
 
-//                // Check if player intersects object
-//                if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
-//                    System.out.println("Touching object: " + gp.obj[i].name);
-//
-//                    if (player) {
-//                        index = i; // Return object index
-//                    }
-//                }
 
                 // Reset positions after checking
                 entity.solidArea.x = entity.solidAreaDefaultX;

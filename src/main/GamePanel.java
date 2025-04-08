@@ -335,15 +335,10 @@ public void updateTeleportEffect() {}
         }
     }
 
-//    public void playMusic (int i){
-//        music.setFile(i);
-//        music.play();
-////        music.loop();
-//    }
 
     public void playEndMusic() {
-        music.stop(); // Stop whatever is playing
-        music.setFile(7); // Your ending music track
+        music.stop();
+        music.setFile(7);
         music.play();
         music.loop();
     }

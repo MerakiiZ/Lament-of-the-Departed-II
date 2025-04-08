@@ -17,7 +17,6 @@ public class UI {
     public String message = " ";
     public boolean dialogueFinished = false;
     int messageCounter = 0;
-//    public boolean gameFinished = false;
     public String currentDialouge = "";
     public String speakerName= "";
 

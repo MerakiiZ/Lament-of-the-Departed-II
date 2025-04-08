@@ -21,10 +21,6 @@ public class MenuState {
     private GamePanel gp;
     private String[] menuOptions = {
             "START GAME",
-            "CONTINUE",
-            "OPTIONS",
-            "ACHIEVEMENTS",
-            "EXTRAS",
             "QUIT GAME"
     };
 
@@ -39,7 +35,7 @@ public class MenuState {
 
         try {
             background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/main_menu/menu.png")));
-            menuFont = new Font("Serif", Font.BOLD, 32);
+            menuFont = new Font("Serif", Font.BOLD, 40);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,13 +72,13 @@ public class MenuState {
         g.setFont(menuFont);
         g.setColor(Color.WHITE);
 
-        int startX = gp.screenWidth / 4;
-        int startY = gp.screenHeight / 3;
-        int lineHeight = 50;
+        int startX = gp.screenWidth / 6;
+        int startY = gp.screenHeight / 2;
+        int lineHeight = 60;
 
         for (int i = 0; i < menuOptions.length; i++) {
             if (i == currentSelection) {
-                g.setColor(Color.YELLOW);
+                g.setColor(Color.red);
             } else {
                 g.setColor(Color.WHITE);
             }

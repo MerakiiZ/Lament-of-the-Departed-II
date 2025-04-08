@@ -174,16 +174,6 @@ public class EventHandler {
     }
 
     public void testEvent(EventRect event) {
-//        if (event.isTeleport) {
-//            // First show the message
-//            gp.ui.currentDialouge = event.eventMessage;
-//            gp.gameState = gp.dialougeState;
-//            event.teleportPending = true;  // Mark for teleport after message
-//        } else {
-//            // Regular dialogue event
-//            gp.ui.currentDialouge = event.eventMessage;
-//            gp.gameState = gp.dialougeState;
-//        }
 
         if (event.isTeleport) {
             gp.ui.currentDialouge = event.eventMessage;

@@ -52,7 +52,7 @@ public class NPC_Sir extends Entity{
             gp.ui.currentDialouge = dialouges[dialougesIndex];
             dialougesIndex++;
         } else {
-            // Always show dialogue index 8 after finishing the conversation.
+
             gp.ui.currentDialouge = dialouges[8];
         }
     }

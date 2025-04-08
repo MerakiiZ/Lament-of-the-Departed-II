@@ -7,12 +7,18 @@
     <list default="true" id="e0ec4bfa-5978-4b7d-b038-22285628aa59" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai/PathFinder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/NPC_Ghost2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Ghost2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/NPC_Mihr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Mihr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/NPC_Sir.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/NPC_Sir.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/EventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Sound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Sound.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/UI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menu/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menu/MenuState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/CollisionChecker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

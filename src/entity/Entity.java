@@ -79,7 +79,6 @@ public class Entity {
     }
 
     public void update() {
-        // To be overridden by subclasses
 
         setAction();
 
@@ -88,7 +87,6 @@ public class Entity {
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkPlayer(this);
 
-        // **Step 4: Move Player if No Tile Collision**
         if (!collisionOn && isMoving) {
             switch (direction) {
                 case "up" -> worldY -= speed;
@@ -98,7 +96,6 @@ public class Entity {
             }
         }
 
-        // **Step 5: Handle Sprite Animation**
         if (isMoving) {
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -206,7 +203,7 @@ public class Entity {
 
 
     public void handleChoice(int choice) {
-        System.out.println("Base entity choice handler - override this!");
+        System.out.println("Base entity choice handler - GIKAPOY NAKO");
     }
 
     public void setupChoices(String[] options) {
